@@ -1,0 +1,407 @@
+{
+  "input_documents": [
+    "South of France - Cities.pdf",
+    "South of France - Cuisine.pdf",
+    "South of France - History.pdf",
+    "South of France - Restaurants and Hotels.pdf",
+    "South of France - Things to Do.pdf",
+    "South of France - Tips and Tricks.pdf",
+    "South of France - Traditions and Culture.pdf"
+  ],
+  "persona": {
+    "role": "Travel Planner"
+  },
+  "job_to_be_done": {
+    "task": "Plan a trip of 4 days for a group of 10 college friends."
+  },
+  "extracted_sections": [
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "The South of France, known for its stunning landscapes, Mediterranean coastline, and rich",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "Occitanie, and parts of Nouvelle-Aquitaine. This area is renowned for its diverse landscapes,",
+      "importance_rank": 2,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "mild winters, making it a year-round destination. The South of France is also famous for its",
+      "importance_rank": 3,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": ": Take a boat trip to the Calanques, a series of stunning",
+      "importance_rank": 4,
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "perfect for a leisurely stroll along the coast. It oﬀers stunning views of the",
+      "importance_rank": 5,
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "wine regions, and the types of wines they produce to help you plan an unforgettable culinary",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "The South of France, known for its stunning landscapes and charming villages, is also a",
+      "importance_rank": 2,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "paradise for food lovers. The region's cuisine is a delightful blend of Mediterranean flavors,",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "seafood. Look for dishes featuring fish, shellfish, and crustaceans, often prepared with",
+      "importance_rank": 4,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "in a historic building in the heart of Saint-Émilion, a town known for its world-class",
+      "importance_rank": 5,
+      "page_number": 4
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "points of interest to help you plan an enriching and unforgettable trip.",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "was created for the study of medicinal plants.",
+      "importance_rank": 2,
+      "page_number": 10
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "The South of France, renowned for its picturesque landscapes, charming villages, and",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": ": Commissioned by King Francis I in 1524, this fortress on the Île d'If",
+      "importance_rank": 4,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "Avignon, located on the banks of the Rhône River, is best known for its role as the seat of the",
+      "importance_rank": 5,
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "cuisine, is a dream destination for travelers. From the glamorous beaches of the French",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "villages of Provence, the South of France promises an unforgettable travel experience. Bon",
+      "importance_rank": 2,
+      "page_number": 14
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "The South of France, known for its stunning landscapes, rich cultural heritage, and exquisite",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "Le Café de Turin (Nice): Known for its seafood, this café oﬀers a variety of aﬀordable",
+      "importance_rank": 4,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "Le Park 45 (Cannes): A Michelin-starred restaurant oﬀering a variety of dishes made",
+      "importance_rank": 5,
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "a wealth of activities and experiences for travelers. Whether you're seeking adventure,",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "this guide to plan your trip and make the most of everything this beautiful region has to oﬀer.",
+      "importance_rank": 2,
+      "page_number": 13
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "take you through a variety of activities and must-see attractions to help you plan an",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "unforgettable trip.",
+      "importance_rank": 4,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "The South of France is renowned for its beautiful coastline along the Mediterranean Sea. Here",
+      "importance_rank": 5,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Packing for a trip to the South of France involves considering the season, planned activities,",
+      "importance_rank": 1,
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Planning a trip to the South of France requires thoughtful preparation to ensure a",
+      "importance_rank": 2,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "kids, or in a group, this guide will help you make the most of your trip.",
+      "importance_rank": 3,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "A scarf, sunglasses for sunny winter days, and a travel-sized hand",
+      "importance_rank": 4,
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Bring a variety of snacks for travel and outings.",
+      "importance_rank": 5,
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "not only a feast for the eyes but also a treasure trove of cultural traditions and heritage. This",
+      "importance_rank": 1,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "region, known for its rich history and diverse influences, oﬀers a unique blend of customs,",
+      "importance_rank": 2,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "of the medieval period, who composed and performed lyrical poetry, were particularly",
+      "importance_rank": 3,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "street performances, and fireworks. The Battle of Flowers, where participants throw flowers",
+      "importance_rank": 4,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "and professional musicians perform in streets, squares, and parks. The festival promotes a",
+      "importance_rank": 5,
+      "page_number": 2
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: The South of France, known for its stunning landscapes, Mediterranean coastline, and rich",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: Occitanie, and parts of Nouvelle-Aquitaine. This area is renowned for its diverse landscapes,",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: mild winters, making it a year-round destination. The South of France is also famous for its",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: : Take a boat trip to the Calanques, a series of stunning",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: perfect for a leisurely stroll along the coast. It oﬀers stunning views of the",
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: wine regions, and the types of wines they produce to help you plan an unforgettable culinary",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: The South of France, known for its stunning landscapes and charming villages, is also a",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: paradise for food lovers. The region's cuisine is a delightful blend of Mediterranean flavors,",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: seafood. Look for dishes featuring fish, shellfish, and crustaceans, often prepared with",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: in a historic building in the heart of Saint-Émilion, a town known for its world-class",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Refined: points of interest to help you plan an enriching and unforgettable trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Refined: was created for the study of medicinal plants.",
+      "page_number": 10
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Refined: The South of France, renowned for its picturesque landscapes, charming villages, and",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Refined: : Commissioned by King Francis I in 1524, this fortress on the Île d'If",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Refined: Avignon, located on the banks of the Rhône River, is best known for its role as the seat of the",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Refined: cuisine, is a dream destination for travelers. From the glamorous beaches of the French",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Refined: villages of Provence, the South of France promises an unforgettable travel experience. Bon",
+      "page_number": 14
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Refined: The South of France, known for its stunning landscapes, rich cultural heritage, and exquisite",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Refined: Le Café de Turin (Nice): Known for its seafood, this café oﬀers a variety of aﬀordable",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Refined: Le Park 45 (Cannes): A Michelin-starred restaurant oﬀering a variety of dishes made",
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: a wealth of activities and experiences for travelers. Whether you're seeking adventure,",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: this guide to plan your trip and make the most of everything this beautiful region has to oﬀer.",
+      "page_number": 13
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: take you through a variety of activities and must-see attractions to help you plan an",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: unforgettable trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: The South of France is renowned for its beautiful coastline along the Mediterranean Sea. Here",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: Packing for a trip to the South of France involves considering the season, planned activities,",
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: Planning a trip to the South of France requires thoughtful preparation to ensure a",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: kids, or in a group, this guide will help you make the most of your trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: A scarf, sunglasses for sunny winter days, and a travel-sized hand",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: Bring a variety of snacks for travel and outings.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: not only a feast for the eyes but also a treasure trove of cultural traditions and heritage. This",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: region, known for its rich history and diverse influences, oﬀers a unique blend of customs,",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: of the medieval period, who composed and performed lyrical poetry, were particularly",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: street performances, and fireworks. The Battle of Flowers, where participants throw flowers",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: and professional musicians perform in streets, squares, and parks. The festival promotes a",
+      "page_number": 2
+    }
+  ],
+  "generated_at": "2025-07-24T10:58:51.494128"
+}
