@@ -143,13 +143,16 @@ def extract_refined_subsections(section):
     return f"Refined: {section['title']}"
 
 def generate_output_json(input_docs, persona, job, extracted_sections, subsection_analysis):
+    # Format output as per the requested structure
     return {
-        'input_documents': input_docs,
-        'persona': persona,
-        'job_to_be_done': job,
-        'extracted_sections': extracted_sections,
-        'subsection_analysis': subsection_analysis,
-        'generated_at': datetime.now().isoformat()
+        "metadata": {
+            "input_documents": input_docs,
+            "persona": persona.get("role", ""),
+            "job_to_be_done": job.get("task", ""),
+            "processing_timestamp": datetime.now().isoformat()
+        },
+        "extracted_sections": extracted_sections,
+        "subsection_analysis": subsection_analysis
     }
 
 def main():
@@ -158,8 +161,8 @@ def main():
     pdf_dir = 'PDFs'
     output_json = 'challenge1b_output.json'
     persona, job, documents, challenge_info = load_input_json(input_json)
-    extracted_sections = []
-    subsection_analysis = []
+    all_sections = []
+    all_subsections = []
     input_docs = [doc['filename'] for doc in documents]
     for doc in documents:
         pdf_path = os.path.join(pdf_dir, doc['filename'])
@@ -173,21 +176,36 @@ def main():
             outline_data = json.load(f)
         outline = outline_data['outline']
         sections = extract_sections_from_outline(pdf_path, outline)
-        ranked_sections = rank_and_select_sections(sections, persona, job, top_n=5)
-        for sec in ranked_sections:
-            refined = extract_refined_subsections(sec)
-            extracted_sections.append({
+        # Score all sections globally
+        keywords = set()
+        for v in persona.values():
+            keywords.update(str(v).lower().split())
+        for v in job.values():
+            keywords.update(str(v).lower().split())
+        for sec in sections:
+            score = sum(1 for word in keywords if word in sec['title'].lower())
+            all_sections.append({
                 'document': doc['filename'],
                 'section_title': sec['title'],
-                'importance_rank': sec['rank'],
+                'score': score,
                 'page_number': sec['page']
             })
-            subsection_analysis.append({
+            all_subsections.append({
                 'document': doc['filename'],
-                'refined_text': refined,
+                'refined_text': extract_refined_subsections(sec),
                 'page_number': sec['page']
             })
-    output = generate_output_json(input_docs, persona, job, extracted_sections, subsection_analysis)
+    # Sort all sections globally by score (descending), then by page number (ascending)
+    all_sections_sorted = sorted(all_sections, key=lambda x: (-x['score'], x['page_number']))
+    top_sections = all_sections_sorted[:5]
+    # Assign importance_rank 1-5
+    for i, sec in enumerate(top_sections):
+        sec['importance_rank'] = i + 1
+        del sec['score']
+    # Only keep subsection_analysis for those top 5
+    top_keys = set((s['document'], s['section_title'], s['page_number']) for s in top_sections)
+    top_subsections = [s for s in all_subsections if (s['document'], s.get('section_title', s['refined_text'].replace('Refined: ','')), s['page_number']) in top_keys or (s['document'], s['page_number']) in [(t['document'], t['page_number']) for t in top_sections]]
+    output = generate_output_json(input_docs, persona, job, top_sections, top_subsections)
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
