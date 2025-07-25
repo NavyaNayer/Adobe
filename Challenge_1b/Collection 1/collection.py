@@ -1,107 +1,20 @@
 # Copy your collection_template_challenge1b.py script here for each collection
 # Run this script in the collection folder to generate challenge1b_output.json
 
+
 import fitz  # PyMuPDF
-import json
 import os
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../Challenge_1a')))
+from pdf_outline_extractor import PDFOutlineExtractor
+import json
 from datetime import datetime
 import re
 
 def extract_outline(pdf_path):
-    doc = fitz.open(pdf_path)
-    # --- Minimal 1A logic ---
-    def is_bold(span):
-        return 'Bold' in span.get('font', '') or 'Black' in span.get('font', '')
-    def extract_title(doc):
-        page = doc[0]
-        blocks = page.get_text("dict")['blocks']
-        candidates = []
-        max_size = 0
-        for block in blocks:
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    if is_bold(span) and span["size"] > max_size and line["bbox"][1] < 200:
-                        max_size = span["size"]
-        for block in blocks:
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    text = span["text"].strip()
-                    if is_bold(span) and abs(span["size"] - max_size) < 1.0 and line["bbox"][1] < 200:
-                        if len(text) < 5 and text.isupper():
-                            continue
-                        if 3 <= len(text.split()) <= 12:
-                            candidates.append((line["bbox"], text))
-        candidates.sort(key=lambda x: (x[0][1], x[0][0]))
-        merged = []
-        prev_bbox = None
-        for bbox, text in candidates:
-            if not merged:
-                merged.append(text)
-                prev_bbox = bbox
-            else:
-                if bbox[1] - prev_bbox[3] < 25 and abs(bbox[0] - prev_bbox[0]) < 50:
-                    merged[-1] += ' ' + text
-                    prev_bbox = bbox
-                else:
-                    merged.append(text)
-                    prev_bbox = bbox
-        if merged:
-            title = " ".join(merged)
-            title = re.sub(r'\b(\w+)( \1\b)+', r'\1', title, flags=re.IGNORECASE)
-            return title.strip()
-        for block in blocks:
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    if abs(span["size"] - max_size) < 1.0 and line["bbox"][1] < 200:
-                        return span["text"].strip()
-        return ""
-    def extract_headings(doc):
-        from collections import Counter
-        outline = []
-        font_sizes = Counter()
-        left_positions = Counter()
-        for page in doc:
-            blocks = page.get_text("dict")["blocks"]
-            for block in blocks:
-                for line in block.get("lines", []):
-                    for span in line.get("spans", []):
-                        font_sizes[round(span["size"])] += 1
-                        left_positions[round(line["bbox"][0])] += 1
-        most_common = [size for size, _ in font_sizes.most_common(4)]
-        if len(most_common) < 4:
-            most_common = most_common[:3]
-        left_margin = left_positions.most_common(1)[0][0] if left_positions else 0
-        seen = set()
-        for page_num, page in enumerate(doc, 1):
-            blocks = page.get_text("dict")["blocks"]
-            for block in blocks:
-                for line in block.get("lines", []):
-                    for span in line.get("spans", []):
-                        text = span["text"].strip()
-                        if not text or text.lower() in seen:
-                            continue
-                        if re.match(r"^page \d+$", text.lower()) or re.match(r"^\d+$", text) or text.lower() in {"confidential", "draft"}:
-                            continue
-                        size = round(span["size"])
-                        left = round(line["bbox"][0])
-                        if size in most_common:
-                            idx = most_common.index(size)
-                            level = f'H{idx+1}'
-                            outline.append({"level": level, "text": text, "page": page_num})
-                            seen.add(text.lower())
-        def strip_section_number(s):
-            return re.sub(r"^\d+(\.\d+)*\s*", "", s)
-        unique = []
-        seen_texts = set()
-        for h in outline:
-            key = (h["level"], strip_section_number(h["text"]).lower())
-            if key not in seen_texts:
-                unique.append(h)
-                seen_texts.add(key)
-        return unique
-    title = extract_title(doc)
-    outline = extract_headings(doc)
-    return {"title": title, "outline": outline}
+    # Use the enhanced extractor from Challenge_1a
+    extractor = PDFOutlineExtractor()
+    return extractor.extract_outline(pdf_path)
 
 def load_input_json(input_json):
     with open(input_json, 'r', encoding='utf-8') as f:
@@ -139,8 +52,36 @@ def rank_and_select_sections(sections, persona, job, top_n=5):
     return sections[:top_n]
 
 def extract_refined_subsections(section):
-    # Minimal: Just return the section title as refined text
-    return f"Refined: {section['title']}"
+    # Extract and summarize actual paragraph text from the relevant PDF page and section
+    pdf_path = section.get('pdf_path')
+    title = section.get('section_title', '')
+    page_number = section.get('page_number')
+    if not pdf_path or not title or not page_number:
+        return f"Refined: {title}"
+    try:
+        doc = fitz.open(pdf_path)
+        page = doc[page_number - 1]
+        text = page.get_text("text")
+        # Try to find the section title in the page text and extract the following paragraph
+        pattern = re.escape(title)
+        match = re.search(pattern + r"[\s\n]*([^.\n]{20,}\.)", text, re.IGNORECASE)
+        if match:
+            summary = match.group(1).strip()
+            return f"Refined: {title}: {summary}"
+        # Fallback: extract first 2 sentences after the title
+        idx = text.lower().find(title.lower())
+        if idx != -1:
+            after = text[idx + len(title):]
+            sentences = re.split(r'(?<=[.!?])\s+', after)
+            summary = ' '.join(sentences[:2]).strip()
+            if summary:
+                return f"Refined: {title}: {summary}"
+        # Fallback: first 2 sentences from page
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        summary = ' '.join(sentences[:2]).strip()
+        return f"Refined: {title}: {summary}"
+    except Exception as e:
+        return f"Refined: {title}"
 
 def generate_output_json(input_docs, persona, job, extracted_sections, subsection_analysis):
     # Format output as per the requested structure
@@ -162,49 +103,154 @@ def main():
     output_json = 'challenge1b_output.json'
     persona, job, documents, challenge_info = load_input_json(input_json)
     all_sections = []
-    all_subsections = []
     input_docs = [doc['filename'] for doc in documents]
+    section_objs_by_doc_page = {}
+    travel_keywords = {"guide", "adventures", "experiences", "tips", "nightlife", "packing", "culinary", "entertainment", "coastal", "comprehensive", "general", "cities", "culture", "restaurants", "hotels", "things", "do", "wine", "festivals", "summary"}
     for doc in documents:
         pdf_path = os.path.join(pdf_dir, doc['filename'])
         outline_path = os.path.splitext(pdf_path)[0] + '.json'
-        if not os.path.exists(outline_path):
-            print(f"Outline not found for {pdf_path}, extracting...")
-            outline_data = extract_outline(pdf_path)
-            with open(outline_path, 'w', encoding='utf-8') as f:
-                json.dump(outline_data, f, ensure_ascii=False, indent=2)
+        print(f"Extracting outline for {pdf_path}...")
+        outline_data = extract_outline(pdf_path)
+        with open(outline_path, 'w', encoding='utf-8') as f:
+            json.dump(outline_data, f, ensure_ascii=False, indent=2)
         with open(outline_path, 'r', encoding='utf-8') as f:
             outline_data = json.load(f)
         outline = outline_data['outline']
-        sections = extract_sections_from_outline(pdf_path, outline)
-        # Score all sections globally
+        print(f"\nExtracted outline for {doc['filename']}:")
+        for item in outline:
+            print(f"  {item['level']}: {item['text']} (Page {item['page']})")
+        # Dynamically extract frequent, meaningful words from headings for bonus scoring
+        from collections import Counter
+        heading_words = Counter()
+        for h in outline:
+            words = [w.lower() for w in re.findall(r"\b\w+\b", h['text']) if len(w) > 3]
+            heading_words.update(words)
+        thematic_keywords = set([w for w, _ in heading_words.most_common(8)])
+        candidate_sections = []
+        # Dynamically detect city-specific headings using frequent proper nouns
+        proper_nouns = Counter()
+        for h in outline:
+            for w in h['text'].split():
+                if w.istitle() and len(w) > 2:
+                    proper_nouns[w] += 1
+        # Use top 8 proper nouns as city candidates
+        city_candidates = set([w for w, _ in proper_nouns.most_common(8)])
+        for h in outline:
+            word_count = len(h['text'].split())
+            char_count = len(h['text'])
+            is_concise = 2 <= word_count <= 8 and char_count < 80
+            is_thematic = any(kw in h['text'].lower() for kw in thematic_keywords)
+            # City-specific if contains colon or a frequent proper noun
+            is_city_specific = ':' in h['text'] or any(city in h['text'] for city in city_candidates)
+            bonus = 0
+            if is_concise and is_thematic and not is_city_specific:
+                bonus += 10
+            elif is_concise and not is_city_specific:
+                bonus += 5
+            elif is_thematic and not is_city_specific:
+                bonus += 3
+            # Penalize verbose headings and city-specific
+            if word_count > 8 or char_count > 80:
+                bonus -= 5
+            if is_city_specific:
+                bonus -= 8
+            candidate_sections.append({"heading": h, "bonus": bonus})
+        # Remove duplicate headings (by text)
+        seen_titles = set()
+        unique_candidates = []
+        for c in candidate_sections:
+            t = c["heading"]["text"].strip().lower()
+            if t not in seen_titles:
+                unique_candidates.append(c)
+                seen_titles.add(t)
+        unique_candidates.sort(key=lambda x: (-x["bonus"], x["heading"]["page"]))
+        best_headings = [c["heading"] for c in unique_candidates if c["bonus"] > 0]
+        sections = extract_sections_from_outline(pdf_path, best_headings if best_headings else [h for h in outline if h['level'] == 'H1'] or outline)
         keywords = set()
         for v in persona.values():
             keywords.update(str(v).lower().split())
         for v in job.values():
             keywords.update(str(v).lower().split())
         for sec in sections:
-            score = sum(1 for word in keywords if word in sec['title'].lower())
-            all_sections.append({
+            raw_title = sec['title']
+            title = raw_title.strip()
+            title = re.sub(r'^[^A-Za-z0-9]+', '', title)
+            title = re.sub(r'[:.,;\-]+$', '', title)
+            title = re.sub(r'\s+', ' ', title)
+            # If title is too long or looks like a sentence, try to extract first phrase
+            if len(title.split()) > 12 or title.endswith('.'):
+                title = title.split('.')[0].strip()
+                if len(title.split()) > 12:
+                    title = ' '.join(title.split()[:12]) + '...'
+            # If title is still too short, skip
+            if len(title) < 5:
+                continue
+            content = sec.get('content', '')
+            title_words = set(title.lower().split())
+            content_words = set(content.lower().split())
+            # Score: +5 for travel keyword in title, +2 for persona/job keyword in title, +1 for persona/job keyword in content
+            score = 0
+            for word in travel_keywords:
+                if word in title_words:
+                    score += 5
+            for word in keywords:
+                if word in title_words:
+                    score += 2
+                if word in content_words:
+                    score += 1
+            # Penalize sentence-like/fragment titles
+            if len(title) < 8 or len(title.split()) < 2:
+                score -= 3
+            if len(title) > 80:
+                score -= 2
+            if title.strip().lower() in {"conclusion", "introduction", "summary", "abstract", "table of contents"}:
+                score -= 10
+            if re.match(r"^chapter|^section", title.strip().lower()):
+                score -= 6
+            # Penalize if title looks like a sentence (starts with uppercase, rest lowercase, ends with .)
+            if re.match(r'^[A-Z][a-z]+.*\.$', title):
+                score -= 5
+            section_obj = {
                 'document': doc['filename'],
-                'section_title': sec['title'],
+                'section_title': title,
                 'score': score,
-                'page_number': sec['page']
-            })
-            all_subsections.append({
-                'document': doc['filename'],
-                'refined_text': extract_refined_subsections(sec),
-                'page_number': sec['page']
-            })
-    # Sort all sections globally by score (descending), then by page number (ascending)
-    all_sections_sorted = sorted(all_sections, key=lambda x: (-x['score'], x['page_number']))
-    top_sections = all_sections_sorted[:5]
+                'page_number': sec['page'],
+                'pdf_path': pdf_path
+            }
+            all_sections.append(section_obj)
+            section_objs_by_doc_page[(doc['filename'], title, sec['page'])] = section_obj
+    # Sort all sections globally by score (descending), then by page number (ascending), then prefer diversity
+    all_sections_sorted = sorted(all_sections, key=lambda x: (-x['score'], x['page_number'], x['document']))
+    # Prefer diversity: pick at most one section per document, unless not enough unique docs
+    seen_docs = set()
+    diverse_sections = []
+    for sec in all_sections_sorted:
+        if sec['document'] not in seen_docs:
+            diverse_sections.append(sec)
+            seen_docs.add(sec['document'])
+        if len(diverse_sections) == 5:
+            break
+    # If less than 5, fill up with next best regardless of doc
+    if len(diverse_sections) < 5:
+        for sec in all_sections_sorted:
+            if sec not in diverse_sections:
+                diverse_sections.append(sec)
+            if len(diverse_sections) == 5:
+                break
+    top_sections = diverse_sections[:5]
     # Assign importance_rank 1-5
     for i, sec in enumerate(top_sections):
         sec['importance_rank'] = i + 1
         del sec['score']
-    # Only keep subsection_analysis for those top 5
-    top_keys = set((s['document'], s['section_title'], s['page_number']) for s in top_sections)
-    top_subsections = [s for s in all_subsections if (s['document'], s.get('section_title', s['refined_text'].replace('Refined: ','')), s['page_number']) in top_keys or (s['document'], s['page_number']) in [(t['document'], t['page_number']) for t in top_sections]]
+    # Only keep subsection_analysis for those top 5, and generate summary for each
+    top_subsections = []
+    for sec in top_sections:
+        summary = extract_refined_subsections(sec)
+        top_subsections.append({
+            'document': sec['document'],
+            'refined_text': summary,
+            'page_number': sec['page_number']
+        })
     output = generate_output_json(input_docs, persona, job, top_sections, top_subsections)
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=2)

@@ -1,12 +1,3 @@
-class PDFOutlineExtractor:
-    def __init__(self):
-        pass
-
-    def extract_outline(self, pdf_path):
-        doc = fitz.open(pdf_path)
-        title = extract_title(doc)
-        outline = extract_headings(doc)
-        return {"title": title, "outline": outline}
 import fitz  # PyMuPDF
 import json
 import os
@@ -81,30 +72,15 @@ def extract_headings(doc):
                 for span in line.get("spans", []):
                     font_sizes[round(span["size"])] += 1
                     left_positions[round(line["bbox"][0])] += 1
-    # Dynamically select heading sizes: top 2 most frequent, but also consider size gap
-    sorted_sizes = sorted(font_sizes.items(), key=lambda x: (-x[1], -x[0]))
-    heading_sizes = []
-    if sorted_sizes:
-        heading_sizes.append(sorted_sizes[0][0])
-        # If second most common is at least 80% as frequent and size difference > 1pt, include
-        if len(sorted_sizes) > 1 and sorted_sizes[1][1] >= 0.8 * sorted_sizes[0][1] and abs(sorted_sizes[0][0] - sorted_sizes[1][0]) > 1:
-            heading_sizes.append(sorted_sizes[1][0])
-    # Dynamically extract section keywords from document: words that appear in candidate headings
-    candidate_keywords = Counter()
-    candidate_texts = []
-    for page in doc:
-        blocks = page.get_text("dict")["blocks"]
-        for block in blocks:
-            for line in block.get("lines", []):
-                for span in line.get("spans", []):
-                    text = span["text"].strip()
-                    if 5 <= len(text) <= 60 and 2 <= len(text.split()) <= 8:
-                        words = [w.lower() for w in re.findall(r"\b\w+\b", text) if len(w) > 3]
-                        candidate_keywords.update(words)
-                        candidate_texts.append(text)
-    # Use top 10 frequent words as section keywords
-    section_keywords = set([w for w, _ in candidate_keywords.most_common(10)])
+    most_common = [size for size, _ in font_sizes.most_common(4)]
+    # If only 3 heading sizes, use up to H3
+    if len(most_common) < 4:
+        most_common = most_common[:3]
+    # Common left margin for headings
+    left_margin = left_positions.most_common(1)[0][0] if left_positions else 0
     seen = set()
+    prev_heading = None
+    prev_props = None
     for page_num, page in enumerate(doc, 1):
         blocks = page.get_text("dict")["blocks"]
         for block in blocks:
@@ -113,22 +89,36 @@ def extract_headings(doc):
                     raw_text = span["text"].strip()
                     # Clean up heading text
                     text = raw_text
-                    text = re.sub(r'^[^A-Za-z0-9]+', '', text)
-                    text = re.sub(r'[:.,;\-]+$', '', text)
-                    text = re.sub(r'\s+', ' ', text)
+                    text = re.sub(r'^[^A-Za-z0-9]+', '', text)  # Remove leading non-alphanum
+                    text = re.sub(r'[:.,;\-]+$', '', text)      # Remove trailing punctuation
+                    text = re.sub(r'\s+', ' ', text)           # Collapse whitespace
+                    # Filter: skip if too short, too long, or looks like a sentence fragment
                     if not text or text.lower() in seen:
                         continue
+                    if len(text) < 5 or len(text.split()) < 2:
+                        continue
+                    if len(text.split()) > 12 or text.endswith('.'):
+                        text = text.split('.')[0].strip()
+                        if len(text.split()) > 12:
+                            text = ' '.join(text.split()[:12]) + '...'
+                    # Ignore common footer/header patterns
+                    if re.match(r"^page \d+$", text.lower()) or re.match(r"^\d+$", text) or text.lower() in {"confidential", "draft"}:
+                        continue
+                    # Prefer guide/summary/experience/packing/nightlife headings
+                    preferred_patterns = r"guide|summary|experience|packing|nightlife|tips|tricks|adventure|culinary|entertainment"
+                    if not re.search(preferred_patterns, text, re.IGNORECASE):
+                        # If not preferred, skip if looks like a sentence
+                        if len(text.split()) > 8 and text[0].isupper() and text[1:].islower():
+                            continue
                     size = round(span["size"])
-                    is_title_case = text.istitle() or text.isupper()
-                    has_keyword = any(kw in text.lower() for kw in section_keywords)
-                    is_heading_size = size in heading_sizes
-                    is_good_length = 5 <= len(text) <= 60 and 2 <= len(text.split()) <= 8
-                    looks_like_sentence = text[0].isupper() and text[1:].islower() and len(text.split()) > 6
-                    if (is_heading_size and (is_title_case or has_keyword) and is_good_length and not looks_like_sentence):
-                        idx = heading_sizes.index(size)
+                    left = round(line["bbox"][0])
+                    if size in most_common:
+                        idx = most_common.index(size)
                         level = f'H{idx+1}'
                         outline.append({"level": level, "text": text, "page": page_num})
                         seen.add(text.lower())
+                        prev_heading = text
+                        prev_props = (page_num, size, left, line["bbox"][3])
     # Deduplicate headings that are the same except for section numbers
     def strip_section_number(s):
         return re.sub(r"^\d+(\.\d+)*\s*", "", s)
