@@ -1,0 +1,105 @@
+{
+  "title": "",
+  "outline": [
+    {
+      "level": "H1",
+      "text": "1. From the hamburger menu",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "3. Select an appropriate font in the drop-down lists:",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "1. Fallback font for Editing.",
+      "page": 3
+    },
+    {
+      "level": "H1",
+      "text": "3. Edit the text by doing one of the following:",
+      "page": 4
+    },
+    {
+      "level": "H1",
+      "text": "4. Type the text.",
+      "page": 7
+    },
+    {
+      "level": "H1",
+      "text": "3. Do any of the following:",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "2. Rotate : Click and hold the Rotation pointer",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "2. To add a button:",
+      "page": 15
+    },
+    {
+      "level": "H1",
+      "text": "3. To add a video:",
+      "page": 15
+    },
+    {
+      "level": "H1",
+      "text": "4. Select OK .",
+      "page": 16
+    },
+    {
+      "level": "H1",
+      "text": "4. To add sound to the PDF:",
+      "page": 16
+    },
+    {
+      "level": "H1",
+      "text": "4. Select OK.",
+      "page": 16
+    },
+    {
+      "level": "H1",
+      "text": "5. To add 3D Media to the video:",
+      "page": 16
+    },
+    {
+      "level": "H1",
+      "text": "Edit text in a PDF",
+      "page": 2
+    },
+    {
+      "level": "H2",
+      "text": "Set the default font for adding and editing text",
+      "page": 3
+    },
+    {
+      "level": "H2",
+      "text": "Change, replace, or delete text",
+      "page": 4
+    },
+    {
+      "level": "H2",
+      "text": "Format text",
+      "page": 5
+    },
+    {
+      "level": "H2",
+      "text": "Add new text",
+      "page": 6
+    },
+    {
+      "level": "H1",
+      "text": "Content .",
+      "page": 6
+    },
+    {
+      "level": "H2",
+      "text": "Move, rotate, or resize a text box",
+      "page": 7
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "input_documents": [
+      "South of France - Cities.pdf",
+      "South of France - Cuisine.pdf",
+      "South of France - History.pdf",
+      "South of France - Restaurants and Hotels.pdf",
+      "South of France - Things to Do.pdf",
+      "South of France - Tips and Tricks.pdf",
+      "South of France - Traditions and Culture.pdf"
+    ],
+    "persona": "Travel Planner",
+    "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
+    "processing_timestamp": "2025-07-25T11:47:04.396309"
+  },
+  "extracted_sections": [
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "A book, e-reader, or tablet for entertainment during",
+      "page_number": 4,
+      "pdf_path": "PDFs\\South of France - Tips and Tricks.pdf",
+      "importance_rank": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Coastal Adventures",
+      "page_number": 2,
+      "pdf_path": "PDFs\\South of France - Things to Do.pdf",
+      "importance_rank": 2
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "Culinary Experiences",
+      "page_number": 6,
+      "pdf_path": "PDFs\\South of France - Cuisine.pdf",
+      "importance_rank": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "Travel Tips",
+      "page_number": 2,
+      "pdf_path": "PDFs\\South of France - Cities.pdf",
+      "importance_rank": 4
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "variety of wine styles",
+      "page_number": 3,
+      "pdf_path": "PDFs\\South of France - Traditions and Culture.pdf",
+      "importance_rank": 5
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Refined: A book, e-reader, or tablet for entertainment during: travel.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Refined: Coastal Adventures: The South of France is renowned for its beautiful coastline along the Mediterranean Sea.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Refined: Culinary Experiences: In addition to dining at top restaurants, there are several culinary experiences you should \nconsider: \n• \nCooking Classes: Many towns and cities in the South of France oﬀer cooking classes \nwhere you can learn to prepare traditional dishes like bouillabaisse, ratatouille, and \ntarte tropézienne. These classes are a great way to immerse yourself in the local \nculture and gain hands-on experience with regional recipes.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Refined: Travel Tips: • \nBest Time to Visit: The best time to visit the South of France is during the spring (April \nto June) and fall (September to October) when the weather is pleasant, and the tourist \ncrowds are smaller. • \nTransportation: The region is well-connected by an extensive network of trains, \nbuses, and flights.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "refined_text": "Refined: variety of wine styles: . Truﬄe Hunting",
+      "page_number": 3
+    }
+  ]
+}

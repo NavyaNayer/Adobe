@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "input_documents": [
+      "Breakfast Ideas.pdf",
+      "Dinner Ideas - Mains_1.pdf",
+      "Dinner Ideas - Mains_2.pdf",
+      "Dinner Ideas - Mains_3.pdf",
+      "Dinner Ideas - Sides_1.pdf",
+      "Dinner Ideas - Sides_2.pdf",
+      "Dinner Ideas - Sides_3.pdf",
+      "Dinner Ideas - Sides_4.pdf"
+    ],
+    "persona": "Food Contractor",
+    "job_to_be_done": "Prepare vegetarian buffet-style dinner menu for corporate gathering",
+    "processing_timestamp": "2025-07-26T21:54:40.861650"
+  },
+  "extracted_sections": [
+    {
+      "document": "Dinner Ideas - Sides_2.pdf",
+      "page_number": 1,
+      "section_title": "Coconut Rice",
+      "importance_rank": 1
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "page_number": 4,
+      "section_title": "Kartoffelsalat (Potato Salad)",
+      "importance_rank": 2
+    },
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "page_number": 5,
+      "section_title": "Potato Salad",
+      "importance_rank": 3
+    },
+    {
+      "document": "Dinner Ideas - Mains_2.pdf",
+      "page_number": 5,
+      "section_title": "Vegetable Stir-Fry",
+      "importance_rank": 4
+    },
+    {
+      "document": "Dinner Ideas - Mains_3.pdf",
+      "page_number": 8,
+      "section_title": "Vegetable Lasagna",
+      "importance_rank": 5
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "Breakfast Ideas.pdf",
+      "page_number": 3,
+      "section_title": "Breakfast Burrito",
+      "refined_text": "Breakfast Burrito Ingredients: 2 large eggs 1/4 cup shredded cheese"
+    },
+    {
+      "document": "Breakfast Ideas.pdf",
+      "page_number": 4,
+      "section_title": "Oatmeal",
+      "refined_text": "Ingredients: 1 cup rolled oats 2 cups water or milk 1/4 teaspoon salt Toppings: fresh fruit, nuts, honey, cinnamon Instructions: In a saucepan, bring water or milk to a boil. Add oats and salt, reduce heat to low, and simmer for 5 minutes, stirring occasionally. Remove from heat and let sit for a few minutes. Serve with your favorite toppings. Yogurt Parfait Ingredients: 1 cup Greek yogurt 1/2 cup granola 1/2 cup fresh berries Honey for drizzling Instructions: In a glass or bowl, layer Greek ..."
+    },
+    {
+      "document": "Breakfast Ideas.pdf",
+      "page_number": 5,
+      "section_title": "Breakfast Sandwich",
+      "refined_text": "Breakfast Sandwich Ingredients: 1 English muﬃn, split and toasted 1 large egg 1 slice of cheese 1 slice of ham or bacon Salt and pepper to taste Instructions: Cook the egg in a skillet over medium heat, seasoning with salt and pepper. Place the cheese on top of the egg to melt. Assemble the sandwich with the egg, cheese, and ham or bacon between the English muﬃn halves. Chia Pudding Ingredients: 1/4 cup chia seeds 1 cup almond milk 1 tablespoon honey or maple syrup 1/2 teaspoon vanilla extrac..."
+    },
+    {
+      "document": "Dinner Ideas - Mains_2.pdf",
+      "page_number": 5,
+      "section_title": "Vegetable Stir-Fry",
+      "refined_text": "Vegetable Stir-Fry Ingredients: 1 cup broccoli florets 1 cup bell peppers, sliced 1 cup snow peas 1 small onion, diced 2 cloves garlic, minced 2 tablespoons soy sauce 1 tablespoon oyster sauce 1 tablespoon sesame oil 1 teaspoon cornstarch 1/4 cup water Cooked rice for serving Instructions: In a small bowl, mix soy sauce, oyster sauce, sesame oil, cornstarch, and water. In a large skillet, heat sesame oil over medium heat. Sauté diced onion and minced garlic until fragrant. Add broccoli, bell ..."
+    },
+    {
+      "document": "Dinner Ideas - Mains_3.pdf",
+      "page_number": 8,
+      "section_title": "Vegetable Lasagna",
+      "refined_text": "Vegetable Lasagna Ingredients: 9 lasagna noodles, cooked 1 small onion, diced 2 cloves garlic, minced 1 zucchini, sliced"
+    }
+  ]
+}

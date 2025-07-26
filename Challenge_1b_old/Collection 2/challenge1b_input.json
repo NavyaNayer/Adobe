@@ -1,0 +1,12 @@
+{
+  "challenge_info": {
+    "challenge_id": "round_1b_003",
+    "test_case_name": "acrobat_learning"
+  },
+  "documents": [
+    {"filename": "acrobat1.pdf", "title": "Acrobat Guide 1"},
+    {"filename": "acrobat2.pdf", "title": "Acrobat Guide 2"}
+  ],
+  "persona": {"role": "HR Professional"},
+  "job_to_be_done": {"task": "Create and manage fillable forms for onboarding and compliance"}
+}
