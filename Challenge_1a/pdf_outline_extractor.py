@@ -9,9 +9,26 @@ class PDFOutlineExtractor:
         pass
 
     def extract_outline(self, pdf_path):
+        import langdetect
+        from pdf_outline_multilang import PDFOutlineMultiLangExtractor
         doc = fitz.open(pdf_path)
-        title = self.extract_title(doc)
-        outline = self.extract_headings(doc)
+        outline_raw = self.extract_headings(doc)
+        sample_text = ' '.join([h['text'] for h in outline_raw[:5]])
+        try:
+            doc_lang = langdetect.detect(sample_text)
+        except Exception:
+            doc_lang = 'en'
+
+        print(f"[DEBUG] Detected language for {pdf_path}: {doc_lang}")
+        if doc_lang != 'en':
+            print(f"[DEBUG] Using multilingual extractor for {pdf_path}")
+            multi_extractor = PDFOutlineMultiLangExtractor()
+            title, outline = multi_extractor.extract_multilang_outline(doc)
+            outline += outline_raw
+        else:
+            print(f"[DEBUG] Using English extractor for {pdf_path}")
+            title = self.extract_title(doc)
+            outline = outline_raw
         return {"title": title, "outline": outline}
 
     def is_bold(self, span):
