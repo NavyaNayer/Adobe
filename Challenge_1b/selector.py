@@ -415,7 +415,7 @@ class PersonaDrivenSelector:
         page_groups = defaultdict(list)
         
         for section, score, justification in scored_sections:
-            page_key = (section.get('document', ''), section.get('page', 1))
+            page_key = (section.get('document', ''), section.get('page', 0))
             page_groups[page_key].append((section, score, justification))
         
         resolved_sections = []
@@ -971,7 +971,7 @@ class PersonaDrivenSelector:
             import fitz  # PyMuPDF
             
             doc = fitz.open(document_path)
-            page_num = section.get('page', 1) - 1  # Convert to 0-based indexing
+            page_num = section.get('page', 0) 
             
             if page_num < 0 or page_num >= len(doc):
                 return self._fallback_section_text(section)
@@ -1227,7 +1227,7 @@ class PersonaDrivenSelector:
             for i, (section, score, justification) in enumerate(top_sections_with_scores):
                 extracted_sections.append({
                     "document": section.get('document', ''),
-                    "page_number": section.get('page', 1),
+                    "page_number": section.get('page', 0),
                     "section_title": section.get('text', ''),
                     "importance_rank": i + 1
                 })
@@ -1240,7 +1240,7 @@ class PersonaDrivenSelector:
                     
                     subsection_analysis.append({
                         "document": section.get('document', ''),
-                        "page_number": section.get('page', 1),
+                        "page_number": section.get('page', 0),
                         "section_title": section.get('text', ''),
                         "refined_text": refined_text
                     })
@@ -1330,7 +1330,7 @@ class DocumentSelector(PersonaDrivenSelector):
                 "rank": i + 1,
                 "title": section.get('text', ''),
                 "document": section.get('document', ''),
-                "page": section.get('page', 1),
+                "page": section.get('page', 0),
                 "score": round(score, 3),
                 "justification": justification,
                 "text": section.get('full_text', section.get('text', ''))
