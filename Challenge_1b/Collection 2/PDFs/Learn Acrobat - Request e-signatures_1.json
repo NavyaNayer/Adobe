@@ -4,102 +4,102 @@
     {
       "level": "H1",
       "text": "3. Add participants :",
-      "page": 10
+      "page": 9
     },
     {
       "level": "H1",
       "text": "1. List the participants required.",
-      "page": 10
+      "page": 9
     },
     {
       "level": "H1",
       "text": "4. . (Optional) Add yourself and/or CC'd parties",
-      "page": 10
+      "page": 9
     },
     {
       "level": "H1",
       "text": "6. Add Agreement Details:",
-      "page": 12
+      "page": 11
     },
     {
       "level": "H1",
       "text": "7. Edit the Agreement settings (Optional):",
-      "page": 12
+      "page": 11
     },
     {
       "level": "H1",
       "text": "9. Prepare the Agreement and Add Fields:",
-      "page": 14
+      "page": 13
     },
     {
       "level": "H1",
       "text": "11. Review and Send",
-      "page": 15
+      "page": 14
     },
     {
       "level": "H1",
       "text": "12. Confirmation",
-      "page": 16
+      "page": 15
     },
     {
       "level": "H1",
       "text": "5. For Configure Graphic, choose an option:",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "9. Do one of the following:",
-      "page": 28
+      "page": 27
     },
     {
       "level": "H1",
       "text": "Send a document to get signatures from",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H1",
       "text": "others",
-      "page": 2
+      "page": 1
     },
     {
-      "level": "H3",
-      "text": "Password Protect the PDF file.",
+      "level": "H4",
+      "text": "More or",
       "page": 3
-    },
-    {
-      "level": "H3",
-      "text": "Set a Completion Deadline .",
-      "page": 3
-    },
-    {
-      "level": "H3",
-      "text": "Simplified mode for single signer",
-      "page": 4
-    },
-    {
-      "level": "H3",
-      "text": "Simplified mode for multiple signers",
-      "page": 5
-    },
-    {
-      "level": "H3",
-      "text": "Advanced mode for multiple signers",
-      "page": 6
     },
     {
       "level": "H1",
       "text": "Signer's experience",
-      "page": 8
-    },
-    {
-      "level": "H3",
-      "text": "select Send in bulk .",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H2",
       "text": "Steps to send in bulk",
-      "page": 9
+      "page": 8
+    },
+    {
+      "level": "H4",
+      "text": "Text input (All Text fields are flagged as Required)",
+      "page": 13
+    },
+    {
+      "level": "H4",
+      "text": "Signer's name (Printed)",
+      "page": 13
+    },
+    {
+      "level": "H4",
+      "text": "Signer's email",
+      "page": 13
+    },
+    {
+      "level": "H4",
+      "text": "Signature date (Read-Only; Supplied by the system)",
+      "page": 13
+    },
+    {
+      "level": "H4",
+      "text": "Checkbox",
+      "page": 13
     }
   ]
 }

@@ -1,105 +1,105 @@
 {
-  "title": "",
+  "title": "Adobe LiveCycle Rights Management (ALCRM) servers",
   "outline": [
     {
       "level": "H1",
       "text": "6. Select OK .",
-      "page": 5
+      "page": 4
     },
     {
       "level": "H1",
       "text": "3. Sign the PDF.",
-      "page": 11
+      "page": 10
     },
     {
       "level": "H1",
       "text": "Adobe LiveCycle Rights Management",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H1",
       "text": "(ALCRM) servers",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H2",
       "text": "What is a digital signature?",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H2",
       "text": "Why validate a digital signature?",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H2",
       "text": "Set preferences for validating digital signatures",
+      "page": 1
+    },
+    {
+      "level": "H4",
+      "text": "document is opened check box selected, Acrobat automatically validates all",
       "page": 2
     },
     {
-      "level": "H2",
-      "text": "Set the trust level of a certificate",
-      "page": 4
+      "level": "H4",
+      "text": "Set verification behavior: The options specify methods that determine",
+      "page": 2
     },
     {
-      "level": "H3",
-      "text": "> Preferences > Signatures .",
-      "page": 4
+      "level": "H4",
+      "text": "is often selected automatically. Contact your system administrator about",
+      "page": 2
     },
     {
-      "level": "H3",
-      "text": "Embedded high privilege JavaScript™ : It a llows privileged JavaScript™",
-      "page": 5
+      "level": "H4",
+      "text": "revocation checking to succeed... checkbox selected, Acrobat checks",
+      "page": 2
     },
     {
-      "level": "H2",
-      "text": "Sign in preview mode for document integrity",
-      "page": 6
+      "level": "H4",
+      "text": "deselect the check box, the revocation status for Acrobat Approval",
+      "page": 2
     },
     {
-      "level": "H2",
-      "text": "Certify a PDF",
-      "page": 6
+      "level": "H4",
+      "text": "signatures.",
+      "page": 3
     },
     {
-      "level": "H2",
-      "text": "Timestamp a document",
-      "page": 6
+      "level": "H4",
+      "text": "discards expired timestamps.",
+      "page": 3
     },
     {
-      "level": "H2",
-      "text": "Validate a digital signature",
-      "page": 6
+      "level": "H4",
+      "text": "time.",
+      "page": 3
     },
     {
-      "level": "H1",
-      "text": "Validate all digital signatures",
-      "page": 8
+      "level": "H4",
+      "text": "Add verification information : Select appropriate options under 'Verification",
+      "page": 3
     },
     {
-      "level": "H2",
-      "text": "View previous versions of a digitally signed document",
-      "page": 8
+      "level": "H4",
+      "text": "Certificates store for:",
+      "page": 3
     },
     {
-      "level": "H3",
-      "text": "> View",
-      "page": 8
+      "level": "H4",
+      "text": "Validating signatures : Certificates are trusted for Acrobat Approval",
+      "page": 3
     },
     {
-      "level": "H3",
-      "text": "Signed Version .",
-      "page": 8
+      "level": "H4",
+      "text": "signature validation.",
+      "page": 3
     },
     {
-      "level": "H2",
-      "text": "Compare versions of a signed document",
-      "page": 8
-    },
-    {
-      "level": "H2",
-      "text": "Trust a signer’s certificate",
-      "page": 8
+      "level": "H4",
+      "text": "Validating certified documents : Certificates are trusted for",
+      "page": 3
     }
   ]
 }

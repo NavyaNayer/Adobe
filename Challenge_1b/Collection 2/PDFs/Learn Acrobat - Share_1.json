@@ -4,102 +4,102 @@
     {
       "level": "H1",
       "text": "3. Select the appropriate option to share the PDF:",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H1",
       "text": "1. Open a PDF.",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H1",
       "text": "1. Double-click the markup.",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H1",
       "text": "1. From the Quick actions toolbar, select Add comment",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H1",
       "text": "3. Do any of the following:",
-      "page": 9
+      "page": 8
     },
     {
       "level": "H1",
       "text": "2. Select Share .",
-      "page": 11
+      "page": 10
     },
     {
       "level": "H1",
       "text": "Share",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H2",
       "text": "PDF sharing options",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H2",
       "text": "Send an anonymous or public link in an email",
+      "page": 3
+    },
+    {
+      "level": "H4",
+      "text": "with someone.",
       "page": 4
     },
     {
       "level": "H2",
       "text": "Mark up text",
-      "page": 6
+      "page": 5
     },
     {
       "level": "H1",
       "text": "Highlight, strikethrough, or underline text",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H1",
       "text": "comment",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H2",
       "text": "Using Select Text Tool",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H2",
       "text": "Using Markup Tool",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H2",
       "text": "Change the color of the markup",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H2",
       "text": "Delete The Markup",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H2",
       "text": "Add a comment to the markup",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H2",
       "text": "Replace text",
+      "page": 7
+    },
+    {
+      "level": "H4",
+      "text": "appears. To indicate that a new paragraph should be added,",
       "page": 8
-    },
-    {
-      "level": "H2",
-      "text": "Insert text",
-      "page": 9
-    },
-    {
-      "level": "H3",
-      "text": "select Insert text .",
-      "page": 9
     }
   ]
 }

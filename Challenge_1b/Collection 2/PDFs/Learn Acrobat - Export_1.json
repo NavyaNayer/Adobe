@@ -4,102 +4,102 @@
     {
       "level": "H1",
       "text": "1. Do one of the following:",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H1",
       "text": "6. Select Save .",
-      "page": 7
+      "page": 6
     },
     {
       "level": "H1",
       "text": "4. Select Convert to HTML.",
-      "page": 15
+      "page": 14
     },
     {
       "level": "H1",
       "text": "4. elect Convert to TIFF.",
-      "page": 25
+      "page": 24
     },
     {
       "level": "H1",
       "text": "4. Select Convert to PNG.",
-      "page": 25
+      "page": 24
     },
     {
       "level": "H1",
       "text": "Overview",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "3. Optional) To configure the conversion settings, select Settings",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "4. (Optional) To configure the image settings:",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "1. Select Export all Images and then select Settings",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "4. Select Ok .",
-      "page": 26
+      "page": 25
     },
     {
       "level": "H1",
       "text": "1. Select the Select tool",
-      "page": 28
+      "page": 27
     },
     {
       "level": "H1",
       "text": "1. Using the Select tool",
-      "page": 28
+      "page": 27
     },
     {
       "level": "H1",
       "text": "1. Use the Select tool",
-      "page": 29
+      "page": 28
     },
     {
       "level": "H1",
       "text": "Export",
-      "page": 2
-    },
-    {
-      "level": "H3",
-      "text": "HTML, and Microsoft Word .",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H3",
       "text": "Save a PDF",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H2",
       "text": "Recover the last saved version",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H3",
       "text": "About the Autosave feature",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H3",
       "text": "Set up automatic saving",
-      "page": 5
+      "page": 4
     },
     {
       "level": "H3",
       "text": "Recover lost changes after an unexpected shutdown",
-      "page": 5
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Convert PDF to DOCX",
+      "page": 4
     }
   ]
 }

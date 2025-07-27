@@ -1,105 +1,105 @@
 {
-  "title": "",
+  "title": "File Save",
   "outline": [
     {
       "level": "H1",
       "text": "5. Select Split .",
-      "page": 6
+      "page": 5
     },
     {
       "level": "H1",
       "text": "3. Do one of the following:",
-      "page": 8
+      "page": 7
     },
     {
       "level": "H1",
       "text": "3. In the left pane, select Delete pages",
-      "page": 10
+      "page": 9
     },
     {
       "level": "H1",
       "text": "7. Select OK .",
-      "page": 11
+      "page": 10
     },
     {
       "level": "H1",
       "text": "4. Select Recognize text .",
-      "page": 15
+      "page": 14
     },
     {
       "level": "H1",
       "text": "4. From the upper-left corner, select the hamburger menu",
-      "page": 15
+      "page": 14
     },
     {
       "level": "H2",
       "text": "Export PDF images to another format",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H1",
       "text": "Rotate, move, delete, extract, or renumber",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H1",
       "text": "pages in a PDF",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H2",
       "text": "Rotate pages in a PDF",
-      "page": 3
+      "page": 2
+    },
+    {
+      "level": "H4",
+      "text": "or Rotate page right° for clockwise 90° rotation",
+      "page": 2
     },
     {
       "level": "H1",
       "text": "Extract pages from a PDF",
-      "page": 4
-    },
-    {
-      "level": "H3",
-      "text": "pages after extracting .",
-      "page": 4
-    },
-    {
-      "level": "H3",
-      "text": "separate files .",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H2",
       "text": "Extract random pages from a PDF",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H1",
       "text": "Split PDFs into multiple documents",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Number of pages",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "File Size",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Top-level Bookmarks",
-      "page": 6
+      "page": 5
     },
     {
       "level": "H2",
       "text": "Split multiple PDFs",
-      "page": 6
+      "page": 5
     },
     {
       "level": "H1",
       "text": "Move or copy pages in a PDF",
-      "page": 8
+      "page": 7
+    },
+    {
+      "level": "H2",
+      "text": "Move or copy a page",
+      "page": 7
+    },
+    {
+      "level": "H4",
+      "text": "button from",
+      "page": 7
+    },
+    {
+      "level": "H2",
+      "text": "Copy a page between two PDFs",
+      "page": 7
+    },
+    {
+      "level": "H1",
+      "text": "Delete or replace pages in a PDF",
+      "page": 9
     }
   ]
 }

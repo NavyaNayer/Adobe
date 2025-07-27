@@ -880,69 +880,86 @@ class PersonaDrivenSelector:
     
     def adaptive_chunk_extraction(self, document_path: Path, max_chars: int = 600) -> List[Dict]:
         """
-        Fallback method: Create chunks from documents that lack proper heading structure.
-        Uses sliding window approach with paragraph-based segmentation.
+        Improved fallback: Create context-rich, non-fragmented, thematically relevant chunks from documents lacking headings.
+        Uses smart paragraph and sentence grouping, filters out noise, and avoids splitting mid-topic.
         """
         try:
             import fitz  # PyMuPDF
-            
             doc = fitz.open(document_path)
             all_chunks = []
-            
+
             for page_num in range(len(doc)):
                 page = doc[page_num]
                 page_text = page.get_text()
-                
+
                 # Split by paragraphs (double newlines or major spacing)
                 paragraphs = re.split(r'\n\s*\n', page_text)
-                
+                para_buffer = []
+                buffer_len = 0
+
                 for i, paragraph in enumerate(paragraphs):
                     paragraph = paragraph.strip()
-                    if len(paragraph) > 50:  # Only meaningful paragraphs
-                        # Create sliding windows if paragraph is too long
-                        if len(paragraph) > max_chars:
-                            # Split into sentences for better chunking
-                            sentences = re.split(r'[.!?]+', paragraph)
-                            current_chunk = ""
-                            
-                            for sentence in sentences:
-                                if len(current_chunk + sentence) < max_chars:
-                                    current_chunk += sentence + ". "
-                                else:
-                                    if current_chunk.strip():
-                                        all_chunks.append({
-                                            'text': f"Paragraph {i+1} (Part)",
-                                            'full_text': current_chunk.strip(),
-                                            'page': page_num + 1,
-                                            'level': 'H3',
-                                            'chunk_type': 'paragraph'
-                                        })
-                                    current_chunk = sentence + ". "
-                            
-                            # Add remaining chunk
-                            if current_chunk.strip():
-                                all_chunks.append({
-                                    'text': f"Paragraph {i+1} (Final)",
-                                    'full_text': current_chunk.strip(),
-                                    'page': page_num + 1,
-                                    'level': 'H3',
-                                    'chunk_type': 'paragraph'
-                                })
-                        else:
+                    # Filter out noise: skip very short or repeated paragraphs
+                    if len(paragraph) < 40 or paragraph.lower() in ['contents', 'index', 'table of contents', 'references', 'appendix']:
+                        continue
+
+                    # If paragraph is too long, split into sentences and group them
+                    if len(paragraph) > max_chars:
+                        sentences = re.split(r'(?<=[.!?])\s+', paragraph)
+                        chunk = ""
+                        for sentence in sentences:
+                            if len(chunk) + len(sentence) < max_chars:
+                                chunk += sentence + " "
+                            else:
+                                if chunk.strip():
+                                    all_chunks.append({
+                                        'text': f"Page {page_num+1} Paragraph {i+1} (Part)",
+                                        'full_text': chunk.strip(),
+                                        'page': page_num + 1,
+                                        'level': 'H3',
+                                        'chunk_type': 'paragraph'
+                                    })
+                                chunk = sentence + " "
+                        if chunk.strip():
                             all_chunks.append({
-                                'text': f"Paragraph {i+1}",
-                                'full_text': paragraph,
+                                'text': f"Page {page_num+1} Paragraph {i+1} (Final)",
+                                'full_text': chunk.strip(),
                                 'page': page_num + 1,
                                 'level': 'H3',
                                 'chunk_type': 'paragraph'
                             })
-            
+                    else:
+                        # Buffer paragraphs to create context-rich chunks
+                        para_buffer.append(paragraph)
+                        buffer_len += len(paragraph)
+                        # If buffer exceeds max_chars or at last paragraph, flush
+                        if buffer_len >= max_chars or i == len(paragraphs) - 1:
+                            chunk_text = "\n".join(para_buffer).strip()
+                            if len(chunk_text) > 40:
+                                all_chunks.append({
+                                    'text': f"Page {page_num+1} Paragraphs {i-len(para_buffer)+2}-{i+1}",
+                                    'full_text': chunk_text,
+                                    'page': page_num + 1,
+                                    'level': 'H3',
+                                    'chunk_type': 'paragraph_group'
+                                })
+                            para_buffer = []
+                            buffer_len = 0
+
             doc.close()
-            return all_chunks
-            
+            # Filter out duplicate or highly similar chunks
+            seen = set()
+            unique_chunks = []
+            for chunk in all_chunks:
+                norm = re.sub(r'\s+', ' ', chunk['full_text'].lower().strip())
+                if norm in seen or len(norm) < 40:
+                    continue
+                seen.add(norm)
+                unique_chunks.append(chunk)
+            return unique_chunks
         except Exception as e:
             print(f"⚠️  Error in adaptive chunking for {document_path}: {e}")
-            return [] 
+            return []
     
     def extract_subsection_text(self, document_path: Path, section: Dict, 
                                max_chars: int = 600, requirements: List[str] = None) -> str:

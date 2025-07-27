@@ -4,102 +4,102 @@
     {
       "level": "H1",
       "text": "2. Select Get started .",
-      "page": 11
+      "page": 10
     },
     {
       "level": "H1",
       "text": "2. Select Agree .",
-      "page": 27
+      "page": 26
     },
     {
       "level": "H1",
       "text": "2. Select Preferences .",
-      "page": 32
+      "page": 31
     },
     {
       "level": "H1",
       "text": "Overview of generative AI features",
-      "page": 2
+      "page": 1
     },
     {
       "level": "H2",
       "text": "Benefits of generative AI features",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H2",
       "text": "Turn off generative AI features",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H2",
       "text": "User Guidelines",
-      "page": 3
-    },
-    {
-      "level": "H3",
-      "text": "example, an attorney-client relationship).",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H2",
       "text": "Attributions",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H2",
       "text": "Feedback",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H1",
-      "text": "Content usage and handling practices",
-      "page": 4
+      "text": "Before You Begin",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "acrobat reader?",
-      "page": 4
+      "level": "H4",
+      "text": "The language of the PDF file is English, French,",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "providing feedback?",
-      "page": 5
+      "level": "H4",
+      "text": "German, Spanish, Italian, Brazilian Portuguese, or",
+      "page": 8
     },
     {
-      "level": "H1",
-      "text": "feedback, how long do we retain that content?",
-      "page": 5
+      "level": "H4",
+      "text": "Japanese.",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "open a file in the application?",
-      "page": 5
+      "level": "H4",
+      "text": "The PDF shouldn’t be password protected or have any",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "application?",
-      "page": 5
+      "level": "H4",
+      "text": "usage restrictions.",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "while you're using generative ai features in acrobat?",
-      "page": 6
+      "level": "H4",
+      "text": "The maximum character limit for the text selection",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "Managing chat history",
-      "page": 6
+      "level": "H4",
+      "text": "feature in AI Assistant is 8000 characters. The selected",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "What is chat history?",
-      "page": 6
+      "level": "H4",
+      "text": "pages.",
+      "page": 8
     },
     {
-      "level": "H3",
-      "text": "How can I see my chat history?",
-      "page": 6
+      "level": "H4",
+      "text": "You’re online.",
+      "page": 8
+    },
+    {
+      "level": "H4",
+      "text": "Generative AI features are enabled.",
+      "page": 8
     }
   ]
 }

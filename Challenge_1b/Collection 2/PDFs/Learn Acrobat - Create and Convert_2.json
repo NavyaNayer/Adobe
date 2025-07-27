@@ -1,105 +1,105 @@
 {
-  "title": "",
+  "title": "Select Visio layers to convert (Acrobat Pro)",
   "outline": [
     {
       "level": "H1",
       "text": "4. Optionally, do any of the following:",
-      "page": 1
+      "page": 0
     },
     {
       "level": "H1",
       "text": "2. Do one of the following:",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H1",
       "text": "3. In the DWG List, do any of the following:",
-      "page": 5
+      "page": 4
     },
     {
       "level": "H1",
       "text": "4. Click Convert .",
-      "page": 5
+      "page": 4
     },
     {
       "level": "H1",
       "text": "5. Click Continue.",
-      "page": 13
+      "page": 12
     },
     {
       "level": "H1",
       "text": "2. Choose Properties.",
-      "page": 17
+      "page": 16
     },
     {
       "level": "H1",
       "text": "4. Click the Ports tab.",
-      "page": 18
+      "page": 17
     },
     {
       "level": "H3",
       "text": "Select Visio layers to convert (Acrobat Pro)",
-      "page": 1
+      "page": 0
+    },
+    {
+      "level": "H4",
+      "text": "list.",
+      "page": 0
     },
     {
       "level": "H1",
       "text": "Convert AutoCAD files to PDF (Acrobat Pro for",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H1",
       "text": "Windows)",
-      "page": 3
+      "page": 2
     },
     {
       "level": "H3",
       "text": "Convert AutoCAD files when AutoCAD is installed",
-      "page": 3
+      "page": 2
     },
     {
-      "level": "H3",
-      "text": "PDF",
-      "page": 3
-    },
-    {
-      "level": "H3",
+      "level": "H4",
       "text": "or Convert To Adobe PDFAnd Send For Review",
-      "page": 3
+      "page": 2
     },
     {
-      "level": "H3",
-      "text": "Down .",
-      "page": 3
+      "level": "H4",
+      "text": "in the resulting PDF.",
+      "page": 2
     },
     {
       "level": "H3",
       "text": "Select AutoCAD layers to convert",
-      "page": 4
+      "page": 3
     },
     {
-      "level": "H3",
+      "level": "H4",
+      "text": "that criterion.",
+      "page": 3
+    },
+    {
+      "level": "H4",
       "text": "Layer(s) .",
-      "page": 4
+      "page": 3
     },
     {
       "level": "H3",
       "text": "Convert AutoCAD files in batches",
-      "page": 5
+      "page": 4
     },
     {
-      "level": "H1",
-      "text": "Application-specific PDFMaker settings",
-      "page": 6
+      "level": "H4",
+      "text": "the associated buttons.",
+      "page": 4
     },
     {
-      "level": "H3",
-      "text": "Settings tab options available from within most applications",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Attach Source File",
-      "page": 6
+      "level": "H4",
+      "text": "or clear the list.",
+      "page": 4
     }
   ]
 }
