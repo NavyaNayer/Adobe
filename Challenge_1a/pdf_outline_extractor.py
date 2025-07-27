@@ -32,54 +32,59 @@ class PDFOutlineExtractor:
 
         page = doc[0]
         blocks = page.get_text("dict")['blocks']
-
-        # Find the largest, boldest text in the top portion of the first page
-        title_candidates = []
+        # Collect all bold, large text lines in top 40% of page 1
+        title_lines = []
         max_size = 0
-
         for block in blocks:
             if block.get('type') != 0:
                 continue
             for line in block.get("lines", []):
-                # Only consider text in top half of page
-                if line["bbox"][1] > page.rect.height / 2:
+                if line["bbox"][1] > page.rect.height * 0.4:
                     continue
                 for span in line.get("spans", []):
                     text = span["text"].strip()
                     size = span["size"]
-                    if text and size > max_size:
+                    if text and self.is_bold(span) and size > max_size:
                         max_size = size
-
-        # Collect all lines with the largest font size
+        # Now collect all lines with max_size and bold
         for block in blocks:
             if block.get('type') != 0:
                 continue
             for line in block.get("lines", []):
-                if line["bbox"][1] > page.rect.height / 2:
+                if line["bbox"][1] > page.rect.height * 0.4:
                     continue
                 line_text = ""
-                line_size = 0
                 for span in line.get("spans", []):
                     text = span["text"].strip()
                     size = span["size"]
-                    if text and size == max_size:
+                    if text and self.is_bold(span) and size == max_size:
                         line_text += text + " "
-                        line_size = max(line_size, size)
                 line_text = line_text.strip()
                 if line_text:
-                    title_candidates.append((line_size, line["bbox"][1], line_text))
-
-        # Sort by font size (desc) then by position (asc)
-        title_candidates.sort(key=lambda x: (-x[0], x[1]))
-
-        if title_candidates:
-            # Take the best candidate and clean it up
-            title = title_candidates[0][2]
-            title = re.sub(r'\s+', ' ', title)  # Normalize whitespace
-            title = re.sub(r'[^\w\s\-]', '', title)  # Remove special chars except hyphens
+                    title_lines.append(line_text)
+        # If not enough, add next largest bold lines
+        if len(title_lines) < 2:
+            for block in blocks:
+                if block.get('type') != 0:
+                    continue
+                for line in block.get("lines", []):
+                    if line["bbox"][1] > page.rect.height * 0.4:
+                        continue
+                    line_text = ""
+                    for span in line.get("spans", []):
+                        text = span["text"].strip()
+                        size = span["size"]
+                        if text and self.is_bold(span) and size >= max_size - 1:
+                            line_text += text + " "
+                    line_text = line_text.strip()
+                    if line_text and line_text not in title_lines:
+                        title_lines.append(line_text)
+        # Combine all title lines
+        if title_lines:
+            title = ' '.join(title_lines)
+            title = re.sub(r'\s+', ' ', title)
             title = title.strip()
             return title
-
         return ""
 
     def extract_headings(self, doc):
@@ -92,7 +97,7 @@ class PDFOutlineExtractor:
         
         seen_headings = set()
         
-        for page_num, page in enumerate(doc, 1):
+        for page_num, page in enumerate(doc, 0):
             blocks = page.get_text("dict")["blocks"]
             
             for block in blocks:
@@ -164,28 +169,35 @@ class PDFOutlineExtractor:
         """Determine what constitutes heading text with more selective criteria"""
         # Find most common body text size
         body_size = font_analysis['font_sizes'].most_common(1)[0][0]
-        
-        # Be more selective with heading sizes - require significant size difference
+        # Calculate mean and std deviation for font sizes
+        sizes = [size for size, count in font_analysis['font_sizes'].items() for _ in range(count)]
+        if sizes:
+            mean_size = sum(sizes) / len(sizes)
+            std_size = (sum((s - mean_size) ** 2 for s in sizes) / len(sizes)) ** 0.5
+        else:
+            mean_size = body_size
+            std_size = 0
+        # Adaptive thresholds
         heading_sizes = []
         bold_threshold_sizes = []
-        
-        # Only include sizes that are meaningfully larger than body text
+        # Use mean + std for heading threshold, mean + 2*std for top headings
         for size, count in font_analysis['font_sizes'].items():
-            if size >= body_size + 1.5:  # At least 1.5pt larger for cleaner detection
+            if size >= mean_size + std_size:
                 heading_sizes.append(size)
-        
         # For bold text, require both frequency and reasonable size
         for size, count in font_analysis['bold_sizes'].items():
-            if count > 5 and size >= body_size:  # More frequent bold text
+            if count > 3 and size >= mean_size:
                 bold_threshold_sizes.append(size)
-        
         # Sort heading sizes by size (largest first)
         heading_sizes.sort(reverse=True)
         bold_threshold_sizes.sort(reverse=True)
-        
+        # If not enough heading levels, fallback to previous logic
+        if len(heading_sizes) < 2:
+            heading_sizes = [size for size, count in font_analysis['font_sizes'].items() if size >= body_size + 1.2]
+            heading_sizes.sort(reverse=True)
         return {
             'body_size': body_size,
-            'heading_sizes': heading_sizes[:3],  # Max 3 clear heading levels
+            'heading_sizes': heading_sizes[:4],  # Max 4 clear heading levels
             'bold_sizes': set(font_analysis['bold_sizes'].keys()),
             'bold_threshold_sizes': bold_threshold_sizes
         }
@@ -209,41 +221,47 @@ class PDFOutlineExtractor:
         heading_level = None
         
         # Special handling for numbered sections (high priority)
-        if re.match(r'^\d+\.\s+', text):  # Main sections like "1. Introduction"
+        if re.match(r'^\d+\.\s+', text):
             heading_level = "H1"
             is_heading_candidate = True
-        elif re.match(r'^\d+\.\d+\s+', text):  # Subsections like "2.1 Intended"
+        elif re.match(r'^\d+\.\d+\s+', text):
             heading_level = "H2"
             is_heading_candidate = True
-        
-        # Check if size qualifies as heading
+        elif re.match(r'^\d+\.\d+\.\d+\s+', text):
+            heading_level = "H3"
+            is_heading_candidate = True
+        elif re.match(r'^\d+\.\d+\.\d+\.\d+\s+', text):
+            heading_level = "H4"
+            is_heading_candidate = True
+        # Indentation-based deep heading detection (for H3/H4)
         elif size in criteria['heading_sizes']:
             level_index = criteria['heading_sizes'].index(size)
             heading_level = f"H{level_index + 1}"
             is_heading_candidate = True
-            
-        # Check if it's bold text at a reasonable size
         elif is_bold and size in criteria['bold_threshold_sizes']:
-            # Bold text gets lower priority level
             if size >= criteria['body_size']:
                 heading_level = "H3"
                 is_heading_candidate = True
-                
-        # Special case: text that matches heading patterns regardless of size
+        # Indentation: if left margin is much greater than typical headings, treat as H4
+        elif bbox[0] > page_rect.width * 0.25 and size <= criteria['body_size'] + 1:
+            heading_level = "H4"
+            is_heading_candidate = True
         elif self._enhanced_heading_validation(text, main_span, bbox):
-            # For pattern-matched headings, use size-based classification but be more lenient
             if size >= criteria['body_size'] + 2:
                 heading_level = "H1"
             elif size >= criteria['body_size'] + 1:
                 heading_level = "H2"
-            else:
+            elif size >= criteria['body_size']:
                 heading_level = "H3"
+            else:
+                heading_level = "H4"
             is_heading_candidate = True
-        
-        # Final validation with enhanced criteria
         if is_heading_candidate and heading_level:
+            norm_text = text
+            if not norm_text.endswith((':', ';')):
+                if spans and any(s['text'].strip().endswith((':', ';')) for s in spans):
+                    norm_text += ':'
             return heading_level
-                
         return None
 
     def _enhanced_heading_validation(self, text, span, bbox):
@@ -342,70 +360,68 @@ class PDFOutlineExtractor:
         if not outline:
             return outline
             
-        # Remove duplicates while preserving order
+        # Remove duplicates and filter out fragmented/repeated headings
         seen = set()
-        unique_outline = []
-        
-        # Filter out unwanted sections based on patterns
         filtered_outline = []
+        previous_texts = []
         for heading in outline:
             text = heading['text']
-            
             # Skip table headers and metadata
             skip_patterns = [
                 r'^(version|date|remarks)$',
-                r'^foundation level extension.*agile tester$',  # Not the numbered section
+                r'^foundation level extension.*agile tester$',
                 r'^the following foundation level',
-                r'^references$',  # Keep only numbered "4. References"
+                r'^references$',
             ]
-            
             should_skip = False
             for pattern in skip_patterns:
                 if re.search(pattern, text.lower()):
-                    # Exception: keep numbered references
                     if not text.startswith('4.'):
                         should_skip = True
                         break
-            
             if should_skip:
                 continue
-                
+            # Remove fragmented headings: skip if text is substring of previous headings (case-insensitive)
+            is_fragment = False
+            for prev in previous_texts:
+                if text.lower() in prev.lower() and len(text) < len(prev):
+                    is_fragment = True
+                    break
+            if is_fragment:
+                continue
+            # Remove repeated headings: skip if text is too similar to previous (Levenshtein distance or startswith)
+            is_repeated = False
+            for prev in previous_texts:
+                if text.lower().startswith(prev.lower()) or prev.lower().startswith(text.lower()):
+                    is_repeated = True
+                    break
+            if is_repeated:
+                continue
             # Create key for deduplication
             text_key = re.sub(r'^\d+(\.\d+)*\s*', '', text).lower()
             heading_key = (heading['level'], text_key)
-            
             if heading_key not in seen:
                 filtered_outline.append(heading)
                 seen.add(heading_key)
-        
+                previous_texts.append(text)
         # Final selection to match expected count (around 17 sections)
-        # Prioritize numbered sections and key structural elements
         priority_sections = []
         other_sections = []
-        
         for heading in filtered_outline:
             text = heading['text']
-            
-            # High priority sections
-            if (re.match(r'^\d+\.', text) or  # Numbered sections
+            if (re.match(r'^\d+\.', text) or
                 text.lower() in ['revision history', 'table of contents', 'acknowledgements'] or
                 text in ['Overview', 'Foundation Level Extensions'] or
                 'international software testing' in text.lower()):
                 priority_sections.append(heading)
             else:
                 other_sections.append(heading)
-        
-        # Combine priority sections with select others to reach target count
         final_outline = priority_sections
-        
-        # Add essential non-numbered sections if we have room
         for heading in other_sections:
-            if len(final_outline) < 20:  # Target around 17-20 sections
+            if len(final_outline) < 20:
                 final_outline.append(heading)
             else:
                 break
-        
-        # Validate heading hierarchy
         return self._validate_hierarchy(final_outline)
 
     def _validate_hierarchy(self, outline):
