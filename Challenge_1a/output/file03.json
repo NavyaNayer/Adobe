@@ -1,6 +1,116 @@
 {
-  "title": "RFP: R RFP: R RFP: R RFP: Request f quest f quest f quest for Pr r Pr r Pr r Proposal oposal oposal oposal",
+  "title": "RFP: Request for Proposal To Present a Proposal for Developing the Business Plan for the Ontario Digital Library",
   "outline": [
+    {
+      "level": "H2",
+      "text": "Ontario’s Libraries Working Together",
+      "page": 0
+    },
+    {
+      "level": "H1",
+      "text": "Ontario’s Digital Library",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Prosperity Strategy",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Summary",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Background",
+      "page": 2
+    },
+    {
+      "level": "H3",
+      "text": "Shared decision-making and accountability:",
+      "page": 3
+    },
+    {
+      "level": "H3",
+      "text": "Shared governance structure:",
+      "page": 3
+    },
+    {
+      "level": "H3",
+      "text": "Shared funding:",
+      "page": 3
+    },
+    {
+      "level": "H3",
+      "text": "Local points of entry:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Access:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Guidance and Advice:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Training:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Provincial Purchasing & Licensing:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Technological Support:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "For each Ontario citizen it could mean:",
+      "page": 4
+    },
+    {
+      "level": "H3",
+      "text": "Milestones",
+      "page": 6
+    },
+    {
+      "level": "H3",
+      "text": "Phase I: Business Planning",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "1. that ODL expenditures will increase by 50% over a 10 year period",
+      "page": 9
+    },
+    {
+      "level": "H2",
+      "text": "OVERVIEW OF ODL FUNDING MODEL",
+      "page": 9
+    },
+    {
+      "level": "H3",
+      "text": "Funding Source 2007 2017",
+      "page": 9
+    },
+    {
+      "level": "H2",
+      "text": "TOTAL ANNUAL",
+      "page": 9
+    },
+    {
+      "level": "H3",
+      "text": "Appendix B: ODL Steering Committee Terms of Reference",
+      "page": 10
+    },
     {
       "level": "H1",
       "text": "1. Preamble",
@@ -12,12 +122,17 @@
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "2.3 recruiting and managing the business planner(s);",
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
+      "text": "2.5 serving as a focus group for business planner(s) to test ideas;",
+      "page": 10
+    },
+    {
+      "level": "H1",
       "text": "2.8 presenting the business plan to funders",
       "page": 10
     },
@@ -27,22 +142,22 @@
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "3.1 Schools:",
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "3.2 Universities:",
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "3.3 Colleges:",
       "page": 10
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "3.4 Public libraries:",
       "page": 10
     },
@@ -77,14 +192,19 @@
       "page": 12
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "9.1 Service on the Steering Committee is non-remunerative",
       "page": 12
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "9.3 Conflict of Interest:",
       "page": 12
+    },
+    {
+      "level": "H3",
+      "text": "Appendix C: ODL’s Envisioned Electronic Resources",
+      "page": 13
     },
     {
       "level": "H1",
@@ -99,6 +219,11 @@
     {
       "level": "H1",
       "text": "3. Educational tool-kits",
+      "page": 13
+    },
+    {
+      "level": "H1",
+      "text": "4. Journals, books, maps, music etc.",
       "page": 13
     }
   ]

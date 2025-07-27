@@ -965,10 +965,12 @@ class PersonaDrivenSelector:
                                max_chars: int = 600, requirements: List[str] = None) -> str:
         """
         Extract actual text content from the PDF around the section location with enhanced detail.
-        Generic implementation for diverse document types.
+        Generic implementation for diverse document types with flexible text matching.
         """
         try:
             import fitz  # PyMuPDF
+            import difflib
+            import re
             
             doc = fitz.open(document_path)
             page_num = section.get('page', 0) 
@@ -976,88 +978,403 @@ class PersonaDrivenSelector:
             if page_num < 0 or page_num >= len(doc):
                 return self._fallback_section_text(section)
             
+            # Try current page first
             page = doc[page_num]
             page_text = page.get_text()
-            
-            # Try to find content related to the section title
             section_title = section.get('text', '').strip()
             
-            # Look for the section in the page text
-            if section_title and section_title in page_text:
-                # Find the position of the section title
-                title_pos = page_text.find(section_title)
-                
-                # Extract text starting from the section title
-                start_pos = title_pos
-                remaining_text = page_text[start_pos:]
-                lines = remaining_text.split('\n')
-                
-                # Enhanced text processing for structured content extraction
-                cleaned_lines = []
-                in_current_section = True
-                
-                for i, line in enumerate(lines):
-                    line = line.strip()
-                    if not line:
-                        continue
-                    
-                    # Stop if we hit another major section (heuristic detection)
-                    if i > 0 and len(line) > 5:
-                        # Check if this looks like another section header
-                        if (line.isupper() or 
-                            (line.replace(' ', '').isalpha() and len(line) < 50) or
-                            re.match(r'^(\d+\.|\w+\.|\w+\s+\d+)', line)):
-                            # Look ahead to see if this is definitely a new section
-                            next_lines = ' '.join(lines[i:i+3]).lower()
-                            if any(term in next_lines for term in ['section', 'chapter', 'part', 'introduction', 'overview']):
-                                break
-                    
-                    # Keep substantial lines
-                    if len(line) > 3:
-                        # Filter out page numbers, headers, footers
-                        if not (line.isdigit() and len(line) < 4):
-                            cleaned_lines.append(line)
-                    
-                    # Stop when we have enough content
-                    if len(' '.join(cleaned_lines)) > max_chars:
-                        break
-                
-                result = ' '.join(cleaned_lines)
-                
-                # Clean up mixed content
-                result = self._clean_extracted_text(result, requirements)
-                
-                # Truncate to max_chars if needed
-                if len(result) > max_chars:
-                    result = result[:max_chars-3] + "..."
-                
+            # Enhanced flexible matching strategies
+            title_pos = self._find_section_in_text(section_title, page_text)
+            
+            if title_pos is not None:
+                result = self._extract_from_position(page_text, title_pos, section_title, max_chars, requirements)
+                if len(result.strip()) > 50:  # Good content found
+                    doc.close()
+                    return result
+            
+            # Try adjacent pages if current page doesn't have enough content
+            result = self._try_adjacent_pages(doc, page_num, section_title, max_chars, requirements)
+            if result and len(result.strip()) > 50:
                 doc.close()
-                return result if result.strip() else self._fallback_section_text(section)
+                return result
                 
-            else:
-                # If exact match not found, get text from the general area
-                lines = page_text.split('\n')
-                relevant_lines = []
-                
-                for line in lines:
-                    line = line.strip()
-                    if len(line) > 10 and not line.isdigit():  # Focus on substantial lines, skip page numbers
-                        relevant_lines.append(line)
-                    if len(' '.join(relevant_lines)) > max_chars:
-                        break
-                
-                result = ' '.join(relevant_lines[:5])  # Take first few substantial lines
-                
-                if len(result) > max_chars:
-                    result = result[:max_chars-3] + "..."
-                    
-                doc.close()
-                return result if result.strip() else self._fallback_section_text(section)
+            # Enhanced fallback: try alternative extraction methods
+            result = self._extract_with_fallback_methods(page_text, section_title, max_chars, requirements)
+            doc.close()
+            return result if result.strip() else self._fallback_section_text(section)
                 
         except Exception as e:
             print(f"⚠️  Error extracting text from {document_path}: {e}")
             return self._fallback_section_text(section)
     
+    def _extract_from_position(self, page_text: str, title_pos: int, section_title: str, 
+                              max_chars: int, requirements: List[str] = None) -> str:
+        """Extract content from a specific position in the text."""
+        remaining_text = page_text[title_pos:]
+        lines = remaining_text.split('\n')
+        
+        # Enhanced text processing for structured content extraction
+        cleaned_lines = []
+        section_content_started = False
+        
+        for i, line in enumerate(lines):
+            line = line.strip()
+            if not line:
+                continue
+            
+            # Skip the title line itself if it's the first meaningful line
+            if i == 0 and self._is_likely_title_line(line, section_title):
+                section_content_started = True
+                continue
+            
+            # Start collecting content after title
+            if not section_content_started and line:
+                section_content_started = True
+            
+            # Stop if we hit another major section (improved heuristic detection)
+            if section_content_started and i > 1 and self._is_likely_new_section(line, lines[i:i+3]):
+                break
+            
+            # Keep substantial lines with better filtering
+            if self._is_content_line(line):
+                cleaned_lines.append(line)
+            
+            # Stop when we have enough content
+            if len(' '.join(cleaned_lines)) > max_chars:
+                break
+        
+        result = ' '.join(cleaned_lines)
+        
+        # Clean up mixed content
+        result = self._clean_extracted_text(result, requirements)
+        
+        # Truncate to max_chars if needed
+        if len(result) > max_chars:
+            result = result[:max_chars-3] + "..."
+        
+        return result
+    
+    def _try_adjacent_pages(self, doc, current_page: int, section_title: str, 
+                           max_chars: int, requirements: List[str] = None) -> str:
+        """Try to find content on adjacent pages if current page is insufficient."""
+        
+        # Try previous page
+        if current_page > 0:
+            prev_page = doc[current_page - 1]
+            prev_text = prev_page.get_text()
+            title_pos = self._find_section_in_text(section_title, prev_text)
+            
+            if title_pos is not None:
+                result = self._extract_from_position(prev_text, title_pos, section_title, max_chars, requirements)
+                if len(result.strip()) > 50:
+                    return result
+        
+        # Try next page
+        if current_page < len(doc) - 1:
+            next_page = doc[current_page + 1]
+            next_text = next_page.get_text()
+            title_pos = self._find_section_in_text(section_title, next_text)
+            
+            if title_pos is not None:
+                result = self._extract_from_position(next_text, title_pos, section_title, max_chars, requirements)
+                if len(result.strip()) > 50:
+                    return result
+        
+        # Try combining current and next page for cases where content spans pages
+        if current_page < len(doc) - 1:
+            current_text = doc[current_page].get_text()
+            next_text = doc[current_page + 1].get_text()
+            combined_text = current_text + "\n" + next_text
+            
+            title_pos = self._find_section_in_text(section_title, combined_text)
+            if title_pos is not None:
+                result = self._extract_from_position(combined_text, title_pos, section_title, max_chars, requirements)
+                if len(result.strip()) > 50:
+                    return result
+        
+        return None
+    
+    def _find_section_in_text(self, section_title: str, page_text: str) -> int:
+        """
+        Enhanced section finding with multiple flexible matching strategies.
+        Returns the position of the section in the text, or None if not found.
+        """
+        import difflib
+        import re
+        
+        if not section_title:
+            return None
+        
+        # Strategy 1: Exact match (case-sensitive)
+        if section_title in page_text:
+            return page_text.find(section_title)
+        
+        # Strategy 2: Case-insensitive match
+        section_lower = section_title.lower()
+        page_lower = page_text.lower()
+        if section_lower in page_lower:
+            return page_lower.find(section_lower)
+        
+        # Strategy 3: Remove common formatting differences
+        # Clean section title: remove extra spaces, punctuation
+        clean_title = re.sub(r'[^\w\s]', '', section_title).strip()
+        clean_title = re.sub(r'\s+', ' ', clean_title)
+        
+        if clean_title.lower() in page_lower:
+            return page_lower.find(clean_title.lower())
+        
+        # Strategy 4: Handle incomplete titles (common in PDFs)
+        # Try partial matching for truncated titles
+        if len(section_title) > 10:
+            # Try first 70% of title
+            partial_title = section_title[:int(len(section_title) * 0.7)]
+            if partial_title.lower() in page_lower:
+                return page_lower.find(partial_title.lower())
+        
+        # Strategy 5: Fuzzy matching with similarity threshold
+        lines = page_text.split('\n')
+        best_match_pos = None
+        best_similarity = 0.0
+        current_pos = 0
+        
+        for line in lines:
+            line_clean = line.strip()
+            if len(line_clean) > 3:  # Skip very short lines
+                # Calculate similarity
+                similarity = difflib.SequenceMatcher(None, section_lower, line_clean.lower()).ratio()
+                
+                # Also try with cleaned versions
+                line_cleaned = re.sub(r'[^\w\s]', '', line_clean).strip()
+                line_cleaned = re.sub(r'\s+', ' ', line_cleaned)
+                similarity_clean = difflib.SequenceMatcher(None, clean_title.lower(), line_cleaned.lower()).ratio()
+                
+                max_similarity = max(similarity, similarity_clean)
+                
+                if max_similarity > best_similarity and max_similarity > 0.6:  # Lowered from 0.7 to 0.6
+                    best_similarity = max_similarity
+                    best_match_pos = current_pos
+            
+            current_pos += len(line) + 1  # +1 for newline
+        
+        # Strategy 6: Partial word matching for recipe titles
+        if not best_match_pos and len(section_title.split()) > 1:
+            # Try matching significant words (skip common words)
+            significant_words = [word for word in section_title.lower().split() 
+                               if len(word) > 3 and word not in ['and', 'the', 'with', 'for', 'from', 'forms', 'only']]
+            
+            if significant_words:
+                for word in significant_words:
+                    if word in page_lower:
+                        # Find the line containing this word
+                        word_pos = page_lower.find(word)
+                        # Look for the start of the line containing this word
+                        line_start = page_text.rfind('\n', 0, word_pos)
+                        return line_start + 1 if line_start != -1 else word_pos
+        
+        # Strategy 7: Advanced pattern matching for specific domains
+        # Handle PDF-specific issues like line breaks in titles
+        if not best_match_pos:
+            # Try matching with line breaks removed
+            title_no_breaks = re.sub(r'\s+', ' ', section_title.strip())
+            page_no_breaks = re.sub(r'\s+', ' ', page_text)
+            
+            if title_no_breaks.lower() in page_no_breaks.lower():
+                return page_no_breaks.lower().find(title_no_breaks.lower())
+        
+        return best_match_pos
+    
+    def _is_likely_title_line(self, line: str, section_title: str) -> bool:
+        """Check if a line is likely the section title itself."""
+        import difflib
+        
+        line_clean = re.sub(r'[^\w\s]', '', line).strip()
+        title_clean = re.sub(r'[^\w\s]', '', section_title).strip()
+        
+        similarity = difflib.SequenceMatcher(None, line_clean.lower(), title_clean.lower()).ratio()
+        return similarity > 0.8
+    
+    def _is_likely_new_section(self, line: str, next_lines: List[str]) -> bool:
+        """Enhanced detection of new section headers."""
+        import re
+        
+        if len(line) > 5:
+            # Check if this looks like another section header
+            if (line.isupper() or 
+                (line.replace(' ', '').isalpha() and len(line) < 50) or
+                re.match(r'^(\d+\.|\w+\.|\w+\s+\d+)', line)):
+                
+                # Look ahead to see if this is definitely a new section
+                next_text = ' '.join(next_lines[:3]).lower() if len(next_lines) >= 3 else ''
+                if any(term in next_text for term in ['section', 'chapter', 'part', 'introduction', 'overview']):
+                    return True
+                
+                # Additional heuristics for recipe/food content
+                if any(term in line.lower() for term in ['ingredients:', 'instructions:', 'recipe', 'method']):
+                    return False  # These are likely part of current section
+                
+                # Check if it's a standalone title-like line
+                words = line.split()
+                if len(words) <= 4 and all(word[0].isupper() for word in words if word):
+                    return True
+        
+        return False
+    
+    def _is_content_line(self, line: str) -> bool:
+        """Improved filtering for content lines."""
+        if len(line) <= 3:
+            return False
+        
+        # Filter out page numbers, headers, footers
+        if line.isdigit() and len(line) < 4:
+            return False
+        
+        # Filter out obvious navigation/formatting elements
+        if line.lower() in ['contents', 'index', 'page', 'next', 'previous', 'back']:
+            return False
+        
+        # Keep lines with substantial content
+        return True
+    
+    def _extract_with_fallback_methods(self, page_text: str, section_title: str, 
+                                     max_chars: int, requirements: List[str] = None) -> str:
+        """Alternative extraction methods when direct matching fails."""
+        lines = page_text.split('\n')
+        relevant_lines = []
+        
+        # Method 1: Look for lines containing key words from section title
+        if section_title:
+            title_words = [word.lower() for word in section_title.split() if len(word) > 3]
+            
+            for i, line in enumerate(lines):
+                line_clean = line.strip()
+                if len(line_clean) > 10:
+                    line_lower = line_clean.lower()
+                    # Check if line contains any significant words from title
+                    if any(word in line_lower for word in title_words):
+                        # Add this line and several following lines
+                        for j in range(i, min(i + 8, len(lines))):  # Increased from 5 to 8 lines
+                            if self._is_content_line(lines[j].strip()):
+                                relevant_lines.append(lines[j].strip())
+                        break
+        
+        # Method 2: Domain-specific extraction patterns
+        if not relevant_lines:
+            relevant_lines = self._extract_by_content_patterns(lines, section_title, max_chars)
+        
+        # Method 3: If still no content, get substantial lines from page
+        if not relevant_lines:
+            for line in lines:
+                line_clean = line.strip()
+                if (len(line_clean) > 10 and 
+                    not line_clean.isdigit() and 
+                    self._is_content_line(line_clean)):
+                    relevant_lines.append(line_clean)
+                if len(' '.join(relevant_lines)) > max_chars:
+                    break
+        
+        result = ' '.join(relevant_lines[:12])  # Increased from 8 to 12 lines
+        
+        if len(result) > max_chars:
+            result = result[:max_chars-3] + "..."
+        
+        # Clean the result
+        if requirements:
+            result = self._clean_extracted_text(result, requirements)
+        
+        return result
+    
+    def _extract_by_content_patterns(self, lines: List[str], section_title: str, max_chars: int) -> List[str]:
+        """Extract content using domain-specific patterns."""
+        import re
+        
+        relevant_lines = []
+        section_lower = section_title.lower() if section_title else ""
+        
+        # Pattern 1: Recipe/Food content (ingredients + instructions)
+        if any(keyword in section_lower for keyword in ['recipe', 'food', 'ingredients', 'cooking', 'dish']):
+            in_ingredients = False
+            in_instructions = False
+            
+            for line in lines:
+                line_clean = line.strip()
+                
+                # Look for ingredient lists
+                if re.match(r'^(ingredients?|what you need):?', line_clean.lower()):
+                    in_ingredients = True
+                    relevant_lines.append(line_clean)
+                    continue
+                
+                # Look for instructions
+                if re.match(r'^(instructions?|directions?|method|how to):?', line_clean.lower()):
+                    in_instructions = True
+                    in_ingredients = False
+                    relevant_lines.append(line_clean)
+                    continue
+                
+                # Collect ingredient/instruction content
+                if (in_ingredients or in_instructions) and line_clean:
+                    # Stop if we hit another section
+                    if self._looks_like_new_section(line_clean):
+                        break
+                    relevant_lines.append(line_clean)
+                    
+                    if len(' '.join(relevant_lines)) > max_chars:
+                        break
+        
+        # Pattern 2: Technical/Software content (steps, procedures)
+        elif any(keyword in section_lower for keyword in ['form', 'software', 'tool', 'feature', 'function']):
+            collecting_content = False
+            
+            for line in lines:
+                line_clean = line.strip()
+                
+                # Look for definition or explanation patterns
+                if any(pattern in line_clean.lower() for pattern in ['feature', 'tool', 'allows', 'enables', 'you can']):
+                    collecting_content = True
+                
+                if collecting_content and line_clean:
+                    if self._looks_like_new_section(line_clean):
+                        break
+                    relevant_lines.append(line_clean)
+                    
+                    if len(' '.join(relevant_lines)) > max_chars:
+                        break
+        
+        # Pattern 3: Travel/Guide content (tips, recommendations)
+        elif any(keyword in section_lower for keyword in ['travel', 'trip', 'visit', 'hotel', 'restaurant', 'tips']):
+            for line in lines:
+                line_clean = line.strip()
+                
+                # Look for travel-related content
+                if (len(line_clean) > 15 and 
+                    any(keyword in line_clean.lower() for keyword in ['best', 'visit', 'located', 'offers', 'recommended', 'tips'])):
+                    relevant_lines.append(line_clean)
+                    
+                    if len(' '.join(relevant_lines)) > max_chars:
+                        break
+        
+        return relevant_lines
+    
+    def _looks_like_new_section(self, line: str) -> bool:
+        """Check if a line looks like the start of a new section."""
+        import re
+        
+        # Short lines that are title-case or all caps
+        if (len(line.split()) <= 4 and 
+            (line.istitle() or line.isupper()) and 
+            len(line) > 5):
+            return True
+        
+        # Lines that start with numbers (numbered sections)
+        if re.match(r'^\d+\.', line):
+            return True
+        
+        # Lines that end with colons (section headers)
+        if line.endswith(':') and len(line.split()) <= 6:
+            return True
+        
+        return False
+
     def _clean_extracted_text(self, text: str, requirements: List[str] = None) -> str:
         """
         Clean extracted text by removing irrelevant content based on requirements.

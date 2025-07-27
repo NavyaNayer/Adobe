@@ -19,7 +19,7 @@
     ],
     "persona": "HR professional",
     "job_to_be_done": "Create and manage fillable forms for onboarding and compliance.",
-    "processing_timestamp": "2025-07-27T22:36:16.624761",
+    "processing_timestamp": "2025-07-28T00:32:00.187556",
     "method": "semantic similarity"
   },
   "extracted_sections": [
@@ -59,31 +59,31 @@
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "page_number": 0,
       "section_title": "Fill and Sign PDF Forms",
-      "refined_text": "Fill and Sign PDF Forms You can easily fill, sign, and share your documents using Acrobat's Fill & Sign tool. Types of PDF forms"
+      "refined_text": "You can easily fill, sign, and share your documents using Acrobat's Fill & Sign tool. Types of PDF forms"
     },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "page_number": 7,
       "section_title": "Is the form fillable?",
-      "refined_text": "This section covers is the form fillable?, providing detailed information, insights, and relevant content on the topic."
+      "refined_text": "form and save it, you cannot edit it again. 3. To add your initials: 1. From the Quick actions toolbar, select Add your signature or initials Select Add Initials. Your initials appear in the field. 2. To adjust the placement of your signature, hover over it until you see a plus icon, and then click and move the signature as desired. 3. To adjust the size of your signature, hover over the blue circle at the corner and then hold and drag it as desired. Note: If you want to use an image as your signature or initials: Sign your name in black ink on a clean, blank sheet of white paper. Sign in t..."
     },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "page_number": 7,
       "section_title": "Fill in PDF Forms",
-      "refined_text": "This section covers fill in pdf forms, providing detailed information, insights, and relevant content on the topic."
+      "refined_text": "Fill in PDF Forms Is the form fillable? Not all forms are fillable. Sometimes form creators don’t convert their PDFs to interactive fillable forms. Or, they intentionally design a form that you can fill in only by hand or with the Fill & Sign tool. These non-interactive forms are called flat forms. Fill in interactive forms"
     },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "page_number": 1,
       "section_title": "Types of PDF forms",
-      "refined_text": "Types of PDF forms Interactive forms: These contain fields that you can select and fill in. Flat forms: These do not have interactive fields. It could be a paper form or PDF that hasn’t been optimized for form filling. The Fill & Sign tool automatically detects the form fields like text fields, comb fields, checkboxes, and radio buttons. You can manually add text and other symbols anywhere on the form using the Fill & Sign tool if required. You can complete the forms by entering information and adding your signatures. Acrobat also allows you to send your completed forms to others and secure..."
+      "refined_text": "Interactive forms: These contain fields that you can select and fill in. Flat forms: These do not have interactive fields. It could be a paper form or PDF that hasn’t been optimized for form filling. The Fill & Sign tool automatically detects the form fields like text fields, comb fields, checkboxes, and radio buttons. You can manually add text and other symbols anywhere on the form using the Fill & Sign tool if required. You can complete the forms by entering information and adding your signatures. Acrobat also allows you to send your completed forms to others and securely save them in Ado..."
     },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
       "page_number": 9,
       "section_title": "Auto-Complete forms (interactive forms",
-      "refined_text": "Auto-Complete forms (interactive forms only) The Auto-Complete feature stores any entries that you type in an interactive form field. AutoComplete then suggests or even automatically enters responses that match your typing in other form fields. The suggestions appear in a pop-up menu, from which you can select a match. The Auto-Complete feature is off by default, so you must enable it in the forms preferences if you want to use it. To remove an entry from the Auto-Complete memory, such as a misspelled entry that you found and corrected later, edit the list in the preferences. Note: The form..."
+      "refined_text": "only) The Auto-Complete feature stores any entries that you type in an interactive form field. AutoComplete then suggests or even automatically enters responses that match your typing in other form fields. The suggestions appear in a pop-up menu, from which you can select a match. The Auto-Complete feature is off by default, so you must enable it in the forms preferences if you want to use it. To remove an entry from the Auto-Complete memory, such as a misspelled entry that you found and corrected later, edit the list in the preferences. Note: The forms preferences apply to the way that the..."
     }
   ]
 }
