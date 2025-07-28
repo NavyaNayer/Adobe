@@ -40,6 +40,8 @@ docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --networ
 3. **Processing Pipeline**: Challenge 1A integration with multi-language support and intelligent filtering
 4. **Pipeline Runner** (`run_challenge1b.py`): End-to-end automation with dependency management and validation
 
+**Innovations**: Hybrid semantic similarity, multi-domain processing, explainable AI rankings, batch optimization, confidence-based scoring
+
 ## Quick Start
 
 ```bash
@@ -105,9 +107,12 @@ pip install sentence-transformers torch  # for enhanced performance
 
 ## Author
 
-**Navya Nayer** - *Adobe India Hackathon 2025*
+Team Smart Builders
+-Diksha Khandelwal
+-Manvendra Singh Tanwar
+-Navya Nayer
 
-**Innovations**: Hybrid semantic similarity, multi-domain processing, explainable AI rankings, batch optimization, confidence-based scoring
+
 
 ---
 *Submission for Adobe India Hackathon 2025 - "Connecting the Dots" Challenge*
