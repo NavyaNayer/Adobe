@@ -5,6 +5,13 @@ class PDFOutlineMultiLangExtractor:
     def __init__(self):
         pass
 
+    def extract_outline(self, pdf_path, section_limit=20):
+        import fitz
+        doc = fitz.open(pdf_path)
+        title, outline = self.extract_multilang_outline(doc, section_limit=section_limit)
+        doc.close()
+        return {"title": title, "outline": outline}
+
     def extract_multilang_outline(self, doc, section_limit=20):
         """
         Generic: Extract main title and headings for non-English PDFs using font size, boldness, and position.

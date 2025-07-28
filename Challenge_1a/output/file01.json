@@ -1,49 +1,29 @@
 {
-  "title": "Application form for grant of LTC advance",
+  "title": "",
   "outline": [
-    {
-      "level": "H1",
-      "text": "12. Amount of advance required.",
-      "page": 0
-    },
     {
       "level": "H1",
       "text": "Application form for grant of LTC advance",
       "page": 0
     },
     {
-      "level": "H4",
-      "text": "fare/bus",
+      "level": "H3",
+      "text": "S.No Name Age",
       "page": 0
     },
     {
-      "level": "H4",
-      "text": "from",
-      "page": 0
-    },
-    {
-      "level": "H4",
-      "text": "the",
-      "page": 0
-    },
-    {
-      "level": "H4",
-      "text": "Name",
-      "page": 0
-    },
-    {
-      "level": "H4",
-      "text": "Age",
-      "page": 0
-    },
-    {
-      "level": "H4",
+      "level": "H3",
       "text": "Relationship",
       "page": 0
     },
     {
-      "level": "H4",
-      "text": "Signature of Government Servant.",
+      "level": "H1",
+      "text": "12. Amount of advance required. Rs.",
+      "page": 0
+    },
+    {
+      "level": "H3",
+      "text": "Date",
       "page": 0
     }
   ]

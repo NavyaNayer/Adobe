@@ -620,30 +620,64 @@ class SimplePDFExtractor:
         
         return text
 
+
+def detect_language(text: str) -> str:
+    """Detect language using langdetect if available, else default to 'en'."""
+    try:
+        from langdetect import detect
+        return detect(text)
+    except Exception:
+        return 'en'
+
+def extract_first_page_text(pdf_path: str) -> str:
+    try:
+        doc = fitz.open(pdf_path)
+        page = doc[0]
+        text = page.get_text()
+        doc.close()
+        return text
+    except Exception:
+        return ""
+
 def main():
-    """Main function for command line usage"""
+    """Main function for command line usage with language detection and fallback."""
     if len(sys.argv) != 2:
-        print("Usage: python pdf_extractor_simple.py <pdf_file>")
+        print("Usage: python pdf_outline_extractor.py <pdf_file>")
         sys.exit(1)
-    
+
     pdf_path = sys.argv[1]
     if not os.path.exists(pdf_path):
         print(f"File not found: {pdf_path}")
         sys.exit(1)
-    
-    print(f"🚀 Processing {pdf_path} with Simple Enhanced Extractor...")
-    
-    extractor = SimplePDFExtractor()
-    result = extractor.extract_outline(pdf_path)
-    
+
+    # Extract first page text for language detection
+    first_page_text = extract_first_page_text(pdf_path)
+    lang = detect_language(first_page_text)
+    print(f"🌐 Detected language: {lang}")
+
+    if lang == 'en':
+        print(f"🚀 Processing {pdf_path} with Simple Enhanced Extractor...")
+        extractor = SimplePDFExtractor()
+        result = extractor.extract_outline(pdf_path)
+    else:
+        print(f"🌍 Non-English detected, using multilingual extractor for {pdf_path}...")
+        try:
+            from pdf_outline_multilang import PDFOutlineMultiLangExtractor
+            extractor = PDFOutlineMultiLangExtractor()
+            result = extractor.extract_outline(pdf_path)
+        except ImportError:
+            print("❌ Multilingual extractor not found. Falling back to SimplePDFExtractor.")
+            extractor = SimplePDFExtractor()
+            result = extractor.extract_outline(pdf_path)
+
     # Save to output
     base_name = os.path.splitext(os.path.basename(pdf_path))[0]
     output_path = os.path.join("output", f"{base_name}.json")
-    
+
     os.makedirs("output", exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
-    
+
     print(f"✅ Processed {pdf_path} -> {output_path}")
     print(f"📊 Found {len(result['outline'])} headings")
     print(f"📝 Title: {result['title']}")
