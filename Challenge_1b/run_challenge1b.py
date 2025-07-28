@@ -21,11 +21,8 @@ from pathlib import Path
 def setup_paths():
     """Setup paths for imports"""
     current_dir = Path(__file__).parent
-    challenge1a_dir = current_dir.parent / "Challenge_1a"
     
-    # Add paths for imports
-    if str(challenge1a_dir) not in sys.path:
-        sys.path.insert(0, str(challenge1a_dir))
+    # Add current directory to path for imports
     if str(current_dir) not in sys.path:
         sys.path.insert(0, str(current_dir))
 
@@ -33,15 +30,12 @@ def check_dependencies():
     """Check if required dependencies are available"""
     issues = []
     
-    # Check Challenge_1a availability
+    # Check local PDF extractor availability
     current_dir = Path(__file__).parent
-    challenge1a_dir = current_dir.parent / "Challenge_1a"
-    pdf_extractor_file = challenge1a_dir / "pdf_outline_extractor.py"
+    pdf_extractor_file = current_dir / "pdf_outline_extractor.py"
     
-    if not challenge1a_dir.exists():
-        issues.append("Challenge_1a directory not found")
-    elif not pdf_extractor_file.exists():
-        issues.append("pdf_outline_extractor.py not found in Challenge_1a")
+    if not pdf_extractor_file.exists():
+        issues.append("pdf_outline_extractor.py not found in Challenge_1b")
     
     # Check selector availability
     selector_file = current_dir / "selector.py"
@@ -56,7 +50,7 @@ def parse_pdfs_if_needed(collection_dir: Path):
         from pdf_outline_extractor import SimplePDFExtractor
     except ImportError as e:
         print(f"❌ Failed to import PDF extractor: {e}")
-        print("Make sure Challenge_1a is available and contains pdf_outline_extractor.py")
+        print("Make sure pdf_outline_extractor.py is available in Challenge_1b directory")
         return False
     
     pdfs_dir = collection_dir / "PDFs"

@@ -6,7 +6,45 @@
 
 ```bash
 cd Challenge_1b
-docker build --platform linux/amd64 -t challenge1b:latest .
+docker build --no-cache --platform linux/amd64 -t challenge1b:latest .
+```
+
+**Note**: All required PDF outline extraction files are now included directly in Challenge_1b.
+
+## Preparing Input for Docker
+
+Before running the Docker container, you need to set up the input directory structure:
+
+**Windows (PowerShell):**
+```powershell
+# Create input and output directories
+mkdir input, output
+
+# Copy one of your existing collections to input directory
+# For single collection processing:
+cp "Collection 1\challenge1b_input.json" input\
+cp -r "Collection 1\PDFs" input\
+
+# For multiple collections processing:
+cp -r "Collection 1" input\
+cp -r "Collection 2" input\
+cp -r "Collection 3" input\
+```
+
+**Linux/macOS (bash):**
+```bash
+# Create input and output directories
+mkdir -p input output
+
+# Copy one of your existing collections to input directory
+# For single collection processing:
+cp "Collection 1/challenge1b_input.json" input/
+cp -r "Collection 1/PDFs" input/
+
+# For multiple collections processing:
+cp -r "Collection 1" input/
+cp -r "Collection 2" input/
+cp -r "Collection 3" input/
 ```
 
 ## Running the Container
@@ -14,8 +52,14 @@ docker build --platform linux/amd64 -t challenge1b:latest .
 ### Option 1: Single Collection Processing
 For processing a single collection with its input file:
 
+**Linux/macOS (bash):**
 ```bash
 docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --network none challenge1b:latest
+```
+
+**Windows (PowerShell):**
+```powershell
+docker run --rm -v ${PWD}/input:/app/input -v ${PWD}/output:/app/output --network none challenge1b:latest
 ```
 
 Expected input structure:
@@ -31,8 +75,14 @@ input/
 ### Option 2: Multiple Collections Processing
 For processing multiple collections:
 
+**Linux/macOS (bash):**
 ```bash
 docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --network none challenge1b:latest
+```
+
+**Windows (PowerShell):**
+```powershell
+docker run --rm -v ${PWD}/input:/app/input -v ${PWD}/output:/app/output --network none challenge1b:latest
 ```
 
 Expected input structure:

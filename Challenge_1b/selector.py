@@ -600,7 +600,7 @@ class PersonaDrivenSelector:
             return 0.0
     
     def find_most_relevant_sections(self, sections: List[Dict], persona: Dict, job: Dict, 
-                                  top_n: int = 5, similarity_threshold: float = 0.3) -> List[Tuple[Dict, float, str]]:
+                                  top_n: int = 5, similarity_threshold: float = 0.1) -> List[Tuple[Dict, float, str]]:
         """
         Find the most relevant PDF sections using advanced semantic similarity with optimizations.
         
@@ -696,7 +696,7 @@ class PersonaDrivenSelector:
             if len(final_results) >= top_n:
                 break
             # More lenient threshold - ensure we get results even if scores are lower
-            effective_threshold = min(similarity_threshold, 0.15) if len(final_results) == 0 else similarity_threshold
+            effective_threshold = min(similarity_threshold, 0.05) if len(final_results) == 0 else similarity_threshold
             if score >= effective_threshold:
                 final_results.append((section, score, justification))
         
@@ -1536,7 +1536,7 @@ class PersonaDrivenSelector:
         if all_sections:
             print(f"🔍 Analyzing {len(all_sections)} sections with advanced semantic similarity...")
             top_sections_with_scores = self.find_most_relevant_sections(
-                all_sections, persona, job, top_n=5, similarity_threshold=0.2
+                all_sections, persona, job, top_n=5, similarity_threshold=0.05
             )
             
             # Convert to the expected format
@@ -1664,36 +1664,6 @@ class DocumentSelector(PersonaDrivenSelector):
                 "similarity_threshold": similarity_threshold
             }
         }
-    """Main function for testing the selector."""
-    if len(sys.argv) != 2:
-        print("Usage: python selector.py <collection_directory>")
-        sys.exit(1)
-    
-    collection_dir = Path(sys.argv[1])
-    if not collection_dir.is_absolute():
-        # If it's relative, make it relative to the current working directory
-        collection_dir = Path.cwd() / collection_dir
-    
-    input_file = collection_dir / "challenge1b_input.json"
-    
-    if not input_file.exists():
-        print(f"Input file not found: {input_file}")
-        sys.exit(1)
-    
-    # Load input
-    with open(input_file, 'r', encoding='utf-8') as f:
-        input_data = json.load(f)
-    
-    # Process
-    selector = PersonaDrivenSelector()
-    result = selector.process_collection(collection_dir, input_data)
-    
-    # Save output
-    output_file = collection_dir / "challenge1b_output.json"
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
-    
-    print(f"✅ Results saved to {output_file}")
 
 
 def main():
@@ -1717,8 +1687,8 @@ def main():
     with open(input_file, 'r', encoding='utf-8') as f:
         input_data = json.load(f)
     
-    # Process using the generic document selector
-    selector = DocumentSelector(use_semantic=True)
+    # Process
+    selector = PersonaDrivenSelector()
     result = selector.process_collection(collection_dir, input_data)
     
     # Save output

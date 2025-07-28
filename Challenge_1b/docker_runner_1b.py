@@ -11,7 +11,6 @@ from pathlib import Path
 
 # Add paths for imports
 sys.path.insert(0, '/app')
-sys.path.insert(0, '/app/Challenge_1a')
 
 def main():
     """Main function to process Challenge 1B collections"""

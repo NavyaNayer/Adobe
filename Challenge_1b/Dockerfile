@@ -24,14 +24,13 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
     pip cache purge
 
-# Copy the Challenge_1a dependency (PDF extractor)
-RUN mkdir -p ./Challenge_1a
-COPY ../Challenge_1a/pdf_outline_extractor.py ./Challenge_1a/
-
-# Copy the Challenge_1b application code
+# Copy the Challenge_1b application code (includes all PDF outline extractors)
 COPY run_challenge1b.py ./
 COPY selector.py ./
 COPY docker_runner_1b.py ./
+COPY pdf_outline_extractor.py ./
+COPY pdf_outline_multilang.py ./
+COPY pdf_outline_nonlatin.py ./
 
 # Create input and output directories with proper permissions
 RUN mkdir -p /app/input /app/output && \
