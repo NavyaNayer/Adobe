@@ -650,25 +650,51 @@ def main():
         print(f"File not found: {pdf_path}")
         sys.exit(1)
 
-    # Extract first page text for language detection
+    # Extract first page text for language and script detection
     first_page_text = extract_first_page_text(pdf_path)
     lang = detect_language(first_page_text)
     print(f"🌐 Detected language: {lang}")
+
+    def is_latin(text):
+        import unicodedata
+        latin_count = 0
+        total = 0
+        for c in text:
+            if c.isalpha():
+                total += 1
+                name = unicodedata.name(c, '')
+                if 'LATIN' in name:
+                    latin_count += 1
+        if total == 0:
+            return False
+        return latin_count / total > 0.6
 
     if lang == 'en':
         print(f"🚀 Processing {pdf_path} with Simple Enhanced Extractor...")
         extractor = SimplePDFExtractor()
         result = extractor.extract_outline(pdf_path)
     else:
-        print(f"🌍 Non-English detected, using multilingual extractor for {pdf_path}...")
-        try:
-            from pdf_outline_multilang import PDFOutlineMultiLangExtractor
-            extractor = PDFOutlineMultiLangExtractor()
-            result = extractor.extract_outline(pdf_path)
-        except ImportError:
-            print("❌ Multilingual extractor not found. Falling back to SimplePDFExtractor.")
-            extractor = SimplePDFExtractor()
-            result = extractor.extract_outline(pdf_path)
+        # Check if script is Latin or non-Latin
+        if is_latin(first_page_text):
+            print(f"🌍 Non-English but Latin script detected, using multilingual extractor for {pdf_path}...")
+            try:
+                from pdf_outline_multilang import PDFOutlineMultiLangExtractor
+                extractor = PDFOutlineMultiLangExtractor()
+                result = extractor.extract_outline(pdf_path)
+            except ImportError:
+                print("❌ Multilingual extractor not found. Falling back to SimplePDFExtractor.")
+                extractor = SimplePDFExtractor()
+                result = extractor.extract_outline(pdf_path)
+        else:
+            print(f"🌏 Non-Latin script detected, using non-Latin extractor for {pdf_path}...")
+            try:
+                from pdf_outline_nonlatin import PDFOutlineNonLatinExtractor
+                extractor = PDFOutlineNonLatinExtractor()
+                result = extractor.extract_outline(pdf_path)
+            except ImportError:
+                print("❌ Non-Latin extractor not found. Falling back to SimplePDFExtractor.")
+                extractor = SimplePDFExtractor()
+                result = extractor.extract_outline(pdf_path)
 
     # Save to output
     base_name = os.path.splitext(os.path.basename(pdf_path))[0]
