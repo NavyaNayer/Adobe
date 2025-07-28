@@ -1,29 +1,9 @@
 {
-  "title": "",
+  "title": "Application form for grant of LTC advance",
   "outline": [
     {
       "level": "H1",
       "text": "Application form for grant of LTC advance",
-      "page": 0
-    },
-    {
-      "level": "H3",
-      "text": "S.No Name Age",
-      "page": 0
-    },
-    {
-      "level": "H3",
-      "text": "Relationship",
-      "page": 0
-    },
-    {
-      "level": "H1",
-      "text": "12. Amount of advance required. Rs.",
-      "page": 0
-    },
-    {
-      "level": "H3",
-      "text": "Date",
       "page": 0
     }
   ]

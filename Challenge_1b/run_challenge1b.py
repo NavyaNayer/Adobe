@@ -22,24 +22,55 @@ def setup_paths():
     """Setup paths for imports"""
     current_dir = Path(__file__).parent
     challenge1a_dir = current_dir.parent / "Challenge_1a"
-    common_dir = current_dir / "common.py"
     
     # Add paths for imports
     if str(challenge1a_dir) not in sys.path:
         sys.path.insert(0, str(challenge1a_dir))
-    if str(common_dir) not in sys.path:
-        sys.path.insert(0, str(common_dir))
+    if str(current_dir) not in sys.path:
+        sys.path.insert(0, str(current_dir))
+
+def check_dependencies():
+    """Check if required dependencies are available"""
+    issues = []
+    
+    # Check Challenge_1a availability
+    current_dir = Path(__file__).parent
+    challenge1a_dir = current_dir.parent / "Challenge_1a"
+    pdf_extractor_file = challenge1a_dir / "pdf_outline_extractor.py"
+    
+    if not challenge1a_dir.exists():
+        issues.append("Challenge_1a directory not found")
+    elif not pdf_extractor_file.exists():
+        issues.append("pdf_outline_extractor.py not found in Challenge_1a")
+    
+    # Check selector availability
+    selector_file = current_dir / "selector.py"
+    if not selector_file.exists():
+        issues.append("selector.py not found")
+    
+    return issues
 
 def parse_pdfs_if_needed(collection_dir: Path):
     """Parse PDFs to generate outline JSON files if they don't exist"""
-    from pdf_outline_extractor import PDFOutlineExtractor
+    try:
+        from pdf_outline_extractor import SimplePDFExtractor
+    except ImportError as e:
+        print(f"❌ Failed to import PDF extractor: {e}")
+        print("Make sure Challenge_1a is available and contains pdf_outline_extractor.py")
+        return False
     
     pdfs_dir = collection_dir / "PDFs"
     if not pdfs_dir.exists():
         print(f"❌ PDFs directory not found: {pdfs_dir}")
         return False
     
-    extractor = PDFOutlineExtractor()
+    # Check if there are any PDF files
+    pdf_files = list(pdfs_dir.glob("*.pdf"))
+    if not pdf_files:
+        print("ℹ️  No PDF files found in PDFs directory")
+        return True
+    
+    extractor = SimplePDFExtractor()
     parsed_count = 0
     
     for pdf_file in pdfs_dir.glob("*.pdf"):
@@ -62,6 +93,7 @@ def parse_pdfs_if_needed(collection_dir: Path):
             
         except Exception as e:
             print(f"❌ Failed to parse {pdf_file.name}: {e}")
+            print(f"   Error details: {str(e)}")
     
     print(f"📊 Parsed {parsed_count} PDF files")
     return True
@@ -78,21 +110,43 @@ def run_selector(collection_dir: Path):
             print(f"❌ Input file not found: {input_file}")
             return False
         
-        with open(input_file, 'r') as f:
-            input_data = json.load(f)
+        try:
+            with open(input_file, 'r', encoding='utf-8') as f:
+                input_data = json.load(f)
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            print(f"❌ Failed to read input file: {e}")
+            return False
+        
+        # Validate input structure
+        required_keys = ['persona', 'job_to_be_done', 'documents']
+        missing_keys = [key for key in required_keys if key not in input_data]
+        if missing_keys:
+            print(f"❌ Input file missing required keys: {missing_keys}")
+            return False
         
         # Process
         selector = PersonaDrivenSelector()
         result = selector.process_collection(collection_dir, input_data)
         
+        if not result:
+            print("❌ Selector returned empty result")
+            return False
+        
         # Save output
         output_file = collection_dir / "challenge1b_output.json"
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(result, f, indent=2, ensure_ascii=False)
+        try:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"❌ Failed to save output file: {e}")
+            return False
         
         print("✅ Section selection completed")
         return True
         
+    except ImportError as e:
+        print(f"❌ Failed to import selector: {e}")
+        return False
     except Exception as e:
         print(f"❌ Error running selector: {e}")
         return False
@@ -147,6 +201,14 @@ def main():
     
     # Setup paths
     setup_paths()
+    
+    # Check dependencies
+    dependency_issues = check_dependencies()
+    if dependency_issues:
+        print("❌ Dependency issues found:")
+        for issue in dependency_issues:
+            print(f"   - {issue}")
+        return 1
     
     # Determine collection directory
     current_dir = Path(__file__).parent

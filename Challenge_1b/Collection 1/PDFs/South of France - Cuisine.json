@@ -1,43 +1,33 @@
 {
-  "title": "A Culinary Journey Through the South of France Introduction",
+  "title": "Introduction",
   "outline": [
-    {
-      "level": "H3",
-      "text": "A Culinary Journey Through the South of France",
-      "page": 0
-    },
     {
       "level": "H1",
       "text": "Introduction",
       "page": 0
     },
     {
-      "level": "H3",
-      "text": "Types of Food",
-      "page": 1
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Famous Dishes",
       "page": 2
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Must-Visit Restaurants",
       "page": 3
     },
     {
-      "level": "H3",
-      "text": "Wine Regions and Types of Wines",
-      "page": 4
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Culinary Experiences",
       "page": 5
     },
     {
-      "level": "H3",
+      "level": "H1",
+      "text": "consider:",
+      "page": 5
+    },
+    {
+      "level": "H1",
       "text": "Conclusion",
       "page": 7
     }

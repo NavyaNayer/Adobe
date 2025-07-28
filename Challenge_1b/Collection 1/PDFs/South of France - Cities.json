@@ -1,11 +1,6 @@
 {
-  "title": "Comprehensive Guide to Major Cities in the South of France Introduction",
+  "title": "Comprehensive Guide to Major Cities in the South of France",
   "outline": [
-    {
-      "level": "H3",
-      "text": "Comprehensive Guide to Major Cities in the South of France",
-      "page": 0
-    },
     {
       "level": "H1",
       "text": "Introduction",
@@ -13,66 +8,26 @@
     },
     {
       "level": "H1",
-      "text": "Overview of the Region",
-      "page": 1
-    },
-    {
-      "level": "H3",
       "text": "Travel Tips",
       "page": 1
     },
     {
-      "level": "H3",
-      "text": "Marseille: The Oldest City in France",
-      "page": 2
-    },
-    {
-      "level": "H3",
-      "text": "MuCEM (Museum of European and Mediterranean Civilizations) : This modern",
-      "page": 2
-    },
-    {
-      "level": "H3",
-      "text": "Nice: The Jewel of the French Riviera",
-      "page": 4
-    },
-    {
-      "level": "H3",
-      "text": "Avignon: The City of Popes",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Aix-en-Provence: A City of Art and Culture",
-      "page": 7
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Toulouse: The Pink City",
       "page": 8
     },
     {
-      "level": "H3",
-      "text": "Montpellier: A University City with Medieval Charm",
-      "page": 9
-    },
-    {
-      "level": "H3",
-      "text": "Perpignan: A Blend of French and Catalan Cultures",
-      "page": 10
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Arles: A Roman Treasure",
       "page": 11
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Carcassonne: A Medieval Fortress",
       "page": 12
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Conclusion",
       "page": 13
     }

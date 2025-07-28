@@ -1,5 +1,5 @@
 {
-  "title": "Ultimate Guide to Activities and Things to Do in the South of France Introduction",
+  "title": "Ultimate Guide to Activities and Things to Do in the South of France",
   "outline": [
     {
       "level": "H1",
@@ -7,99 +7,104 @@
       "page": 0
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Coastal Adventures",
       "page": 1
     },
     {
-      "level": "H3",
+      "level": "H1",
+      "text": "are some activities to enjoy by the sea:",
+      "page": 1
+    },
+    {
+      "level": "H1",
       "text": "Beach Hopping",
       "page": 1
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Water Sports",
       "page": 1
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Cultural Experiences",
       "page": 2
     },
     {
-      "level": "H3",
-      "text": "Art and Museums",
+      "level": "H1",
+      "text": "yourself in the region's heritage:",
       "page": 2
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Historical Sites",
       "page": 2
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Outdoor Activities",
       "page": 3
     },
     {
-      "level": "H3",
-      "text": "Hiking and Biking",
-      "page": 3
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Water Activities",
       "page": 3
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Culinary Delights",
       "page": 4
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Wine Tasting",
       "page": 4
     },
     {
-      "level": "H3",
-      "text": "Cooking Classes",
-      "page": 4
-    },
-    {
-      "level": "H3",
-      "text": "Festivals and Events",
+      "level": "H1",
+      "text": "some not-to-miss celebrations:",
       "page": 5
     },
     {
-      "level": "H3",
-      "text": "Relaxation and Wellness",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Spa and Wellness Retreats",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Yoga and Meditation Retreats",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Shopping and Markets",
+      "level": "H1",
+      "text": "shops:",
       "page": 7
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Local Markets",
       "page": 7
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Boutique Shopping",
       "page": 7
+    },
+    {
+      "level": "H1",
+      "text": "Family-Friendly Activities",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "Outdoor Adventures",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "Educational Experiences",
+      "page": 8
+    },
+    {
+      "level": "H1",
+      "text": "Nightclubs",
+      "page": 10
+    },
+    {
+      "level": "H1",
+      "text": "Conclusion",
+      "page": 12
     }
   ]
 }

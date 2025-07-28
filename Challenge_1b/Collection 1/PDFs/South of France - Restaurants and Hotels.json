@@ -1,5 +1,5 @@
 {
-  "title": "Comprehensive Guide to Restaurants and Hotels in the South of France Introduction",
+  "title": "Comprehensive Guide to Restaurants and Hotels in the South of France",
   "outline": [
     {
       "level": "H1",
@@ -7,57 +7,17 @@
       "page": 0
     },
     {
-      "level": "H3",
+      "level": "H1",
       "text": "Restaurants",
       "page": 1
     },
     {
-      "level": "H3",
-      "text": "Budget-Friendly Restaurants",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Family-Friendly Restaurants",
-      "page": 2
-    },
-    {
-      "level": "H3",
-      "text": "Upscale Restaurants",
-      "page": 3
-    },
-    {
-      "level": "H3",
-      "text": "Luxurious Restaurants",
-      "page": 5
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Hotels",
       "page": 7
     },
     {
-      "level": "H3",
-      "text": "Budget-Friendly Hotels",
-      "page": 7
-    },
-    {
-      "level": "H3",
-      "text": "Family-Friendly Hotels",
-      "page": 8
-    },
-    {
-      "level": "H3",
-      "text": "Upscale Hotels",
-      "page": 10
-    },
-    {
-      "level": "H3",
-      "text": "Luxurious Hotels",
-      "page": 11
-    },
-    {
-      "level": "H3",
+      "level": "H1",
       "text": "Conclusion",
       "page": 13
     }

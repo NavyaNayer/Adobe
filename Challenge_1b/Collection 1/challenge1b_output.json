@@ -11,7 +11,7 @@
     ],
     "persona": "Travel Planner",
     "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
-    "processing_timestamp": "2025-07-28T00:31:10.813407",
+    "processing_timestamp": "2025-07-28T12:34:31.129097",
     "method": "semantic similarity"
   },
   "extracted_sections": [
@@ -28,21 +28,21 @@
       "importance_rank": 2
     },
     {
-      "document": "South of France - Tips and Tricks.pdf",
-      "page_number": 0,
-      "section_title": "Planning, and Exploring",
-      "importance_rank": 3
-    },
-    {
       "document": "South of France - Cuisine.pdf",
       "page_number": 3,
       "section_title": "Must-Visit Restaurants",
-      "importance_rank": 4
+      "importance_rank": 3
     },
     {
       "document": "South of France - Restaurants and Hotels.pdf",
       "page_number": 7,
-      "section_title": "Budget-Friendly Hotels",
+      "section_title": "Hotels",
+      "importance_rank": 4
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "page_number": 1,
+      "section_title": "Restaurants",
       "importance_rank": 5
     }
   ],
@@ -60,12 +60,6 @@
       "refined_text": "Beach Bag: A large, waterproof bag for essentials. Towels: Lightweight, quick-drying beach towels. Beach Toys: Buckets, shovels, and toys for kids. Snorkeling Gear: Bring your own gear for a better fit and comfort. Additional Tips: Pack a beach umbrella or tent for shade and a cooler for drinks and snacks. Consider bringing a waterproof phone case to protect your device. Hiking and Outdoor Activities Backpack: A sturdy, comfortable backpack for essentials. Water Bottle: A reusable water bottle. First Aid Kit: A small kit with band-aids, antiseptic wipes, and medications. Insect Repellent: P..."
     },
     {
-      "document": "South of France - Tips and Tricks.pdf",
-      "page_number": 0,
-      "section_title": "Planning, and Exploring",
-      "refined_text": "Introduction Planning a trip to the South of France requires thoughtful preparation to ensure a comfortable and enjoyable experience. This guide covers everything from packing essentials to travel tips, catering to all seasons and various activities. Whether you're traveling solo, with kids, or in a group, this guide will help you make the most of your trip."
-    },
-    {
       "document": "South of France - Cuisine.pdf",
       "page_number": 3,
       "section_title": "Must-Visit Restaurants",
@@ -74,8 +68,14 @@
     {
       "document": "South of France - Restaurants and Hotels.pdf",
       "page_number": 7,
-      "section_title": "Budget-Friendly Hotels",
-      "refined_text": "Ibis Budget Nice Californie Lenval (Nice): A budget-friendly hotel oﬀering comfortable rooms and easy access to the beach and city center. The modern amenities and convenient location make it a great choice for budget-conscious travelers. Hotel Le Saint Paul (Nice): A charming hotel located in a historic building, oﬀering aﬀordable rates and beautiful views of the Mediterranean. The cozy rooms and friendly service make it a pleasant stay. Hotel des Arts (Montpellier): A budget-friendly hotel located in the heart of Montpellier, oﬀering comfortable rooms and easy access to the city's attract..."
+      "section_title": "Hotels",
+      "refined_text": "Budget-Friendly Hotels Ibis Budget Nice Californie Lenval (Nice): A budget-friendly hotel oﬀering comfortable rooms and easy access to the beach and city center. The modern amenities and convenient location make it a great choice for budget-conscious travelers. Hotel Le Saint Paul (Nice): A charming hotel located in a historic building, oﬀering aﬀordable rates and beautiful views of the Mediterranean. The cozy rooms and friendly service make it a pleasant stay. Hotel des Arts (Montpellier): A budget-friendly hotel located in the heart of Montpellier, oﬀering comfortable rooms and easy acces..."
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "page_number": 1,
+      "section_title": "Restaurants",
+      "refined_text": "Budget-Friendly Restaurants Chez Pipo (Nice): Famous for its socca, a traditional Niçoise chickpea pancake, this casual eatery oﬀers delicious and aﬀordable local dishes. The rustic ambiance and friendly service make it a favorite among locals and tourists alike. La Merenda (Nice): A small, cozy restaurant serving authentic Niçoise cuisine. The menu changes with the seasons, ensuring fresh and flavorful dishes. Reservations are a must due to its popularity and limited seating. Chez Etienne (Marseille): Known for its simple yet delicious pizzas and grilled meats, this family-owned restaurant..."
     }
   ]
 }
