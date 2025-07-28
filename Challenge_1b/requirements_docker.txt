@@ -1,0 +1,24 @@
+# Docker Requirements for Challenge 1B - Offline Mode
+# Persona-Driven Document Intelligence System (Offline)
+
+# Core dependencies
+PyMuPDF==1.23.26
+
+# Machine Learning for offline semantic processing
+scikit-learn==1.3.2
+numpy==1.24.4
+
+# Optional: Lightweight sentence transformers (small model)
+# sentence-transformers==2.2.2
+
+# Text processing
+nltk==3.8.1
+
+# Language detection (lightweight)
+langdetect==1.0.9
+
+# Data manipulation
+pandas==2.0.3
+
+# Note: OpenAI dependency removed for offline Docker operation
+# The selector will automatically fall back to keyword-based matching

@@ -1,0 +1,4 @@
+# Core dependencies for PDF processing
+PyMuPDF==1.23.26
+# Lightweight library for language detection (with fallback)
+langdetect==1.0.9
