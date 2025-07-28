@@ -6,7 +6,7 @@
 
 ```bash
 cd Challenge_1a
-docker build --platform linux/amd64 -t mysolutionname:somerandomidentifier .
+docker build --no-cache --platform linux/amd64 -t mysolutionname:somerandomidentifier .
 ```
 
 ## Running the Container

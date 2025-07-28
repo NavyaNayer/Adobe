@@ -74,7 +74,8 @@ class PDFOutlineNonLatinExtractor:
         outline_candidates = []
         section_num_pattern = re.compile(r'^(\d+([．.]))(\d+([．.]))?(\d+([．.]))?')
         # Regex to clean TOC dot leaders and page numbers at end
-        toc_cleanup_re = re.compile(r'[\s　]*[.．・…‥⋯]+[\s　]*\d{1,3}$')
+        # Remove dot leaders (with or without trailing page numbers)
+        toc_cleanup_re = re.compile(r'[.．・…‥⋯]+[ 　]*\d{0,3}$')
         # Map: cleaned heading text -> (level, page)
         heading_map = {}
         for page_num, page in enumerate(doc, 1):

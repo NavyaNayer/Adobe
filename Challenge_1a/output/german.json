@@ -1,105 +1,85 @@
 {
-  "title": "Die Kunst des Einfachen: Zehn Vorschläge für einen guten wissen- schaftlichen Schreibstil",
+  "title": "Information zum",
   "outline": [
     {
       "level": "H1",
-      "text": "Die Kunst des Einfachen:",
+      "text": "Information zum",
+      "page": 0
+    },
+    {
+      "level": "H1",
+      "text": "1. Praxissemester im Betrieb oder Ausland",
+      "page": 0
+    },
+    {
+      "level": "H2",
+      "text": "Praktikumsordnung für die Bachelor-Studiengänge des FB W vom 12.04.06",
+      "page": 0
+    },
+    {
+      "level": "H2",
+      "text": "Allgemeine Informationen zum Praxissemester",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "– Abgabetermin des Berichtes:",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "– Abgabeform:",
       "page": 1
     },
     {
       "level": "H2",
-      "text": "Zusammenfassung:",
-      "page": 1
-    },
-    {
-      "level": "H1",
-      "text": "Die Kathedrale und die Medientheorie.",
-      "page": 6
-    },
-    {
-      "level": "H1",
-      "text": "Eine Anmerkung",
-      "page": 6
-    },
-    {
-      "level": "H3",
-      "text": "Ausdrucksweise, durch Vermeiden allzu langer",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Der römische Redner Marcus Tullius Cicero klagte",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Eindruck, als versuchten die Autoren einen Preis",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Fehler, wenn man möchte, dass man verstanden",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Für viele Menschen sind wissenschaftliche Bücher",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Ohne einen gewissen Aufwand, ohne wiederholtes",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Prüfen, Feilen, Nachdenken, Umstellen kommt",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Schrift zur Rhetorik, dass selbst in berühmten",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Sprechen, durch Worte, die gebräuchlich sind und",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Um verständlich zu sein, muss Sprache eindeutig",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Und viele Wissenschaftler sehen dies anscheinend",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Verkehrung im Gebrauch der Zeiten, Verwirrung",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Wissenschaftler ist sie es nicht. Die große Kunst",
-      "page": 1
-    },
-    {
-      "level": "H4",
-      "text": "Wissenschaftlich schreiben ist keine Wissenschaft",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Zugegeben: Das hört sich einfacher an, als es ist.",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Adjektive überflüssig.",
+      "text": "Informationen zum Praxissemesterbericht",
       "page": 2
+    },
+    {
+      "level": "H3",
+      "text": "– Umfang des Berichtes:",
+      "page": 2
+    },
+    {
+      "level": "H1",
+      "text": "20.000 Zeichen, welches ca. 10 Seiten entspricht",
+      "page": 2
+    },
+    {
+      "level": "H3",
+      "text": "– Inhalt des Berichtes:",
+      "page": 2
+    },
+    {
+      "level": "H3",
+      "text": "– Zitierung von Fachquellen in Fußnoten:",
+      "page": 3
+    },
+    {
+      "level": "H3",
+      "text": "– Zitierung von Fachquellen direkt im Text:",
+      "page": 3
+    },
+    {
+      "level": "H2",
+      "text": "Informationen zur Praxissemesterpräsentation",
+      "page": 5
+    },
+    {
+      "level": "H3",
+      "text": "– Inhalt der Präsentation:",
+      "page": 5
+    },
+    {
+      "level": "H2",
+      "text": "Zusätzliche Tipps",
+      "page": 6
+    },
+    {
+      "level": "H3",
+      "text": "Eigenständigkeitserklärung).",
+      "page": 6
     }
   ]
 }
