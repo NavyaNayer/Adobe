@@ -7,14 +7,14 @@
       "page": 1
     },
     {
-      "level": "H3",
-      "text": "Charte des Stages de 5e année à Sciences Po Lille",
-      "page": 1
+      "level": "H2",
+      "text": "Annexe 1. Références bibliographiques en note de bas de page",
+      "page": 11
     },
     {
-      "level": "H4",
-      "text": "Vademecum réalisé par Bruno Villalba, Professeur des Universités en science politique",
-      "page": 1
+      "level": "H2",
+      "text": "Annexe 2. Sources méthodologiques et ressources numériques",
+      "page": 13
     },
     {
       "level": "H4",
@@ -28,22 +28,17 @@
     },
     {
       "level": "H4",
-      "text": "Annexe 1. Références bibliographiques en note de bas de page",
+      "text": "Vademecum réalisé par Bruno Villalba, Professeur des Universités en science politique",
       "page": 1
-    },
-    {
-      "level": "H4",
-      "text": "Annexe 2. Sources méthodologiques et ressources numériques",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Lille).",
-      "page": 2
     },
     {
       "level": "H3",
       "text": "Il est essentiel de faire relire votre travail par un tiers.",
+      "page": 2
+    },
+    {
+      "level": "H3",
+      "text": "Lille).",
       "page": 2
     },
     {
@@ -63,32 +58,22 @@
     },
     {
       "level": "H3",
-      "text": "Ce n’est pas un exercice de synthèse générale.",
-      "page": 9
-    },
-    {
-      "level": "H3",
       "text": "A. Un contenu qui suscite le débat théorique",
       "page": 9
     },
     {
       "level": "H3",
-      "text": "Dans les notes en bas de page :",
+      "text": "Ce n’est pas un exercice de synthèse générale.",
+      "page": 9
+    },
+    {
+      "level": "H3",
+      "text": "Comment citer des sources internet ?",
       "page": 11
     },
     {
       "level": "H3",
-      "text": "Pour les ouvrages : op. cit. et la page",
-      "page": 11
-    },
-    {
-      "level": "H3",
-      "text": "Pour les articles : art. cité. Et la page",
-      "page": 11
-    },
-    {
-      "level": "H3",
-      "text": "Comment citer un ouvrage ?",
+      "text": "Comment citer les documents juridiques ?",
       "page": 11
     },
     {
@@ -98,7 +83,22 @@
     },
     {
       "level": "H3",
-      "text": "Comment citer les documents juridiques ?",
+      "text": "Comment citer un ouvrage ?",
+      "page": 11
+    },
+    {
+      "level": "H3",
+      "text": "Dans les notes en bas de page :",
+      "page": 11
+    },
+    {
+      "level": "H3",
+      "text": "Pour les articles : art. cité. Et la page",
+      "page": 11
+    },
+    {
+      "level": "H3",
+      "text": "Pour les ouvrages : op. cit. et la page",
       "page": 11
     }
   ]

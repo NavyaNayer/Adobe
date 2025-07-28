@@ -2,13 +2,13 @@
   "title": "Die Kunst des Einfachen: Zehn Vorschläge für einen guten wissen- schaftlichen Schreibstil",
   "outline": [
     {
-      "level": "H2",
-      "text": "Zusammenfassung:",
+      "level": "H1",
+      "text": "Die Kunst des Einfachen:",
       "page": 1
     },
     {
-      "level": "H1",
-      "text": "Die Kunst des Einfachen:",
+      "level": "H2",
+      "text": "Zusammenfassung:",
       "page": 1
     },
     {
@@ -23,12 +23,17 @@
     },
     {
       "level": "H3",
+      "text": "Ausdrucksweise, durch Vermeiden allzu langer",
+      "page": 1
+    },
+    {
+      "level": "H3",
       "text": "Der römische Redner Marcus Tullius Cicero klagte",
       "page": 1
     },
     {
       "level": "H3",
-      "text": "Schrift zur Rhetorik, dass selbst in berühmten",
+      "text": "Eindruck, als versuchten die Autoren einen Preis",
       "page": 1
     },
     {
@@ -38,27 +43,7 @@
     },
     {
       "level": "H3",
-      "text": "Sprechen, durch Worte, die gebräuchlich sind und",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Ausdrucksweise, durch Vermeiden allzu langer",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Verkehrung im Gebrauch der Zeiten, Verwirrung",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Um verständlich zu sein, muss Sprache eindeutig",
-      "page": 1
-    },
-    {
-      "level": "H3",
-      "text": "Zugegeben: Das hört sich einfacher an, als es ist.",
+      "text": "Für viele Menschen sind wissenschaftliche Bücher",
       "page": 1
     },
     {
@@ -72,13 +57,18 @@
       "page": 1
     },
     {
-      "level": "H4",
-      "text": "Wissenschaftlich schreiben ist keine Wissenschaft",
+      "level": "H3",
+      "text": "Schrift zur Rhetorik, dass selbst in berühmten",
       "page": 1
     },
     {
       "level": "H3",
-      "text": "Für viele Menschen sind wissenschaftliche Bücher",
+      "text": "Sprechen, durch Worte, die gebräuchlich sind und",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Um verständlich zu sein, muss Sprache eindeutig",
       "page": 1
     },
     {
@@ -88,7 +78,7 @@
     },
     {
       "level": "H3",
-      "text": "Eindruck, als versuchten die Autoren einen Preis",
+      "text": "Verkehrung im Gebrauch der Zeiten, Verwirrung",
       "page": 1
     },
     {
@@ -98,7 +88,17 @@
     },
     {
       "level": "H4",
-      "text": "Heft 2 / 2010",
+      "text": "Wissenschaftlich schreiben ist keine Wissenschaft",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Zugegeben: Das hört sich einfacher an, als es ist.",
+      "page": 1
+    },
+    {
+      "level": "H3",
+      "text": "Adjektive überflüssig.",
       "page": 2
     }
   ]

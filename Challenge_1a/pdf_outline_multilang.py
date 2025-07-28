@@ -85,9 +85,12 @@ class PDFOutlineMultiLangExtractor:
         body_size = all_sizes[-1] if all_sizes else max_size - 2
 
         import difflib
-        outline = []
-        seen = set()
-        previous_texts = []
+        # Regex to clean TOC dot leaders and page numbers at end
+        toc_cleanup_re = re.compile(r'[\s　]*[.．・…‥⋯]+[\s　]*\d{1,3}$')
+        # Regex for section numbering (e.g., 1.2, 2.3.4, 1.2.3.4, 1-2, 1:2, etc.)
+        section_num_pattern = re.compile(r'^(\d+[.．:：-])+(\d+)?')
+        # Map: cleaned heading text -> (level, page)
+        heading_map = {}
         for page_num, page in enumerate(doc, 1):
             blocks = page.get_text("dict")['blocks']
             for block in blocks:
@@ -128,32 +131,48 @@ class PDFOutlineMultiLangExtractor:
                     # Require headings to start with a capital letter
                     if not line_text[0].isupper():
                         continue
-                    # Heading level detection
-                    main_span = max(line_spans, key=lambda s: len(s["text"])) if line_spans else None
-                    size = round(main_span["size"], 1) if main_span else body_size
-                    is_bold = False
-                    if main_span:
-                        font = main_span.get('font', '').lower()
-                        flags = main_span.get('flags', 0)
-                        bold_indicators = ['bold', 'black', 'heavy', 'demi', 'semi']
-                        font_is_bold = any(indicator in font for indicator in bold_indicators)
-                        flags_bold = bool(flags & 2**4)
-                        is_bold = font_is_bold or flags_bold
+                    # Clean TOC dot leaders and page numbers
+                    cleaned_text = toc_cleanup_re.sub('', line_text).strip()
+                    # Section numbering detection
                     heading_level = None
-                    if size == heading_sizes[0]:
-                        heading_level = "H1"
-                    elif len(heading_sizes) > 1 and size == heading_sizes[1]:
-                        heading_level = "H2"
-                    elif len(heading_sizes) > 2 and size == heading_sizes[2]:
-                        heading_level = "H3"
-                    elif len(heading_sizes) > 3 and size == heading_sizes[3]:
-                        heading_level = "H4"
-                    # Boldness boost for H2/H3
-                    if is_bold and not heading_level and size >= body_size + 1:
-                        heading_level = "H2"
-                    # Indentation-based H4
-                    if not heading_level and line["bbox"][0] > page.rect.width * 0.25 and size <= body_size + 1:
-                        heading_level = "H4"
+                    m = section_num_pattern.match(cleaned_text)
+                    if m:
+                        # Count number of section levels (number of dots, dashes, colons, etc.)
+                        num_separators = len(re.findall(r'[.．:：-]', cleaned_text))
+                        if num_separators == 0:
+                            heading_level = "H1"
+                        elif num_separators == 1:
+                            heading_level = "H2"
+                        elif num_separators == 2:
+                            heading_level = "H3"
+                        else:
+                            heading_level = "H4"
+                    else:
+                        # Fallback to font size and boldness
+                        main_span = max(line_spans, key=lambda s: len(s["text"])) if line_spans else None
+                        size = round(main_span["size"], 1) if main_span else body_size
+                        is_bold = False
+                        if main_span:
+                            font = main_span.get('font', '').lower()
+                            flags = main_span.get('flags', 0)
+                            bold_indicators = ['bold', 'black', 'heavy', 'demi', 'semi']
+                            font_is_bold = any(indicator in font for indicator in bold_indicators)
+                            flags_bold = bool(flags & 2**4)
+                            is_bold = font_is_bold or flags_bold
+                        if size == heading_sizes[0]:
+                            heading_level = "H1"
+                        elif len(heading_sizes) > 1 and size == heading_sizes[1]:
+                            heading_level = "H2"
+                        elif len(heading_sizes) > 2 and size == heading_sizes[2]:
+                            heading_level = "H3"
+                        elif len(heading_sizes) > 3 and size == heading_sizes[3]:
+                            heading_level = "H4"
+                        # Boldness boost for H2/H3
+                        if is_bold and not heading_level and size >= body_size + 1:
+                            heading_level = "H2"
+                        # Indentation-based H4
+                        if not heading_level and line["bbox"][0] > page.rect.width * 0.25 and size <= body_size + 1:
+                            heading_level = "H4"
                     # Only accept if heading_level assigned
                     if heading_level:
                         # Stricter filtering for H4 headings
@@ -165,23 +184,17 @@ class PDFOutlineMultiLangExtractor:
                                 continue
                             if line_text.endswith('-') or line_text.endswith(','):
                                 continue
-                        # Fuzzy duplicate filtering
-                        skip = False
-                        for prev in previous_texts:
-                            if line_text.lower() in prev.lower() and len(line_text) < len(prev):
-                                skip = True
-                                break
-                            if line_text.lower().startswith(prev.lower()) or prev.lower().startswith(line_text.lower()):
-                                skip = True
-                                break
-                            if difflib.SequenceMatcher(None, line_text.lower(), prev.lower()).ratio() > 0.85:
-                                skip = True
-                                break
-                        if skip or line_text in seen:
-                            continue
-                        outline.append({"level": heading_level, "text": line_text, "page": page_num})
-                        seen.add(line_text)
-                        previous_texts.append(line_text)
+                        # Deduplicate: keep only the highest page number for each heading
+                        if cleaned_text:
+                            prev = heading_map.get(cleaned_text)
+                            if not prev or page_num > prev[1]:
+                                heading_map[cleaned_text] = (heading_level, page_num)
+        # Build outline from deduped headings, sorted by page and section order
+        outline = [
+            {"level": level, "text": text, "page": page}
+            for text, (level, page) in heading_map.items()
+        ]
+        outline.sort(key=lambda h: (h["page"], h["text"]))
         # Final selection: prioritize H1/H2, limit to section_limit
         priority_sections = [h for h in outline if h["level"] in ["H1", "H2"]]
         other_sections = [h for h in outline if h["level"] not in ["H1", "H2"]]
