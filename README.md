@@ -90,7 +90,7 @@ python Challenge_1b/selector.py "Collection 1"        # Direct analysis
 ## Core Dependencies
 
 **Challenge 1A**: PyMuPDF, langdetect, numpy  
-**Challenge 1B**: PyMuPDF, langdetect, numpy, scikit-learn, sentence-transformers (optional)
+**Challenge 1B**: PyMuPDF, langdetect, numpy, scikit-learn, sentence-transformers 
 
 ## Project Structure
 
