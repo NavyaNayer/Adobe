@@ -99,14 +99,18 @@ Adobe/
 ├── Challenge_1a/          # PDF outline extraction system
 │   ├── pdf_outline_extractor.py
 │   ├── input/ output/     # PDF processing directories
+│   ├── README.md          # Detailed Challenge 1A documentation
 │   └── Dockerfile
 ├── Challenge_1b/          # Persona-driven intelligence system  
 │   ├── selector.py        # Core intelligence engine
 │   ├── run_challenge1b.py # Integrated pipeline runner
 │   ├── Collection 1-3/    # Test collections
+│   ├── README.md          # Detailed Challenge 1B documentation
 │   └── Dockerfile
 └── README.md             # This integrated documentation
 ```
+
+**Note**: Each challenge folder contains its own detailed README with specific implementation details, usage instructions, and technical documentation.
 
 ## Author
 

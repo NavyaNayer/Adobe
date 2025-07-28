@@ -15,7 +15,7 @@ Built an **advanced persona-driven document intelligence system** that extracts 
 
 ## Technical Implementation
 
-**Semantic Analysis**: Deployed sentence-transformers with sklearn TF-IDF fallback for robust semantic understanding  
+**Semantic Analysis**: Deployed sentence-transformers with MiniLM model and sklearn TF-IDF fallback for robust semantic understanding  
 **Domain-Aware Processing**: Automatic domain detection with specialized pipelines maintaining generalizability  
 **Adaptive Scoring**: Dynamic weighting between semantic similarity and keyword matching based on confidence  
 **Multi-Strategy Extraction**: 7-layer fallback system for reliable section identification across diverse PDF formats  
